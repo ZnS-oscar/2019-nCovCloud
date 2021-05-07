@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>2019-nCovCloud</title>
+    <meta name="keywords" content="2019-NcoV,transmission,genome,psychological stress,LAUP,k-mer,bioinformatics">
+    <meta name="description"
+        content="Web service for 2019-NcoV transmission, genome, and psychological stress analysis">
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+    <link rel="shortcut icon" href="img/coronavirus_logo.png">
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+
+
+    <link rel="stylesheet" href="css/dataTables.semanticui.min.css">
+    <link rel="stylesheet" href="css/buttons.semanticui.min.css">
+    <link rel="stylesheet" href="css/select.semanticui.min.css">
+    <link rel="stylesheet" href="css/semantic.min.css">
+    <link rel="stylesheet" href="css/my.css">
+
+    <script src="js/semantic.min.js"></script>
+<script>
+	var flag=0;
+	var d1,d2,d3,d4;
+	function checkin(e){
+		if(flag==0){
+			flag=1;
+			d1=JSON.parse(JSON.stringify(option.xAxis[0].data));
+			d2=JSON.parse(JSON.stringify(option.series[0].data));
+			d3=JSON.parse(JSON.stringify(option.series[1].data));
+			d4=JSON.parse(JSON.stringify(option.series[2].data));
+		}
+		if(e==1)return JSON.parse(JSON.stringify(d1));
+		if(e==2)return JSON.parse(JSON.stringify(d2));
+		if(e==3)return JSON.parse(JSON.stringify(d3));
+		if(e==4)return JSON.parse(JSON.stringify(d4));
+		return null;
+	}
+	function rstdate(){
+		var temp=document.getElementById("date_str");
+			temp.value="2020-01-23"; 
+		var temp=document.getElementById("date_eof");
+			temp.value="2020-06-01"; 
+	}
+	function datajud(y,m,d,ay,am,ad,by,bm,bd){
+		if(y>by||y<ay)return false;
+		else{
+			var nowtime = new Date( y,  m,  d);
+			var strtime = new Date(ay, am, ad);
+			var endtime = new Date(by, bm, bd);
+			if (nowtime < strtime || nowtime > endtime) {
+				return false;
+			}
+		}
+		return true;
+	}
+	function submits(){
+		var dats=checkin(1);
+		var dat1=checkin(2);
+		var dat2=checkin(3);
+		var dat3=checkin(4);
+		var maxl=document.getElementById("date_eof").value;
+		var minl=document.getElementById("date_str").value;
+		var maxd=maxl.split("-");
+		var mind=minl.split("-");
+		for (var i=0;dats.length>0&&i<dats.length;){
+			var dets = dats[i].split("-");
+			if(datajud(dets[0],dets[1],dets[2],mind[0],mind[1],mind[2],maxd[0],maxd[1],maxd[2])==false)
+			{
+				console.log(dets[0],dets[1],dets[2]);
+				dats.splice(i,1);
+				dat1.splice(i,1);
+				dat2.splice(i,1);
+				dat3.splice(i,1);
+			}
+			else{
+				i++;
+			}	
+		}
+		option.xAxis[0].data=dats;
+		option.series[0].data=dat1;
+		option.series[1].data=dat2;
+		option.series[2].data=dat3;
+		console.log(option.xAxis[0].data);
+		myChart.setOption(option, true);
+	}
+</script>
+
+    <script language="javascript" type="text/javascript">
+
+        function write1() {
+
+            htmlobj = $.ajax({ url: "head.html", async: false });
+            var head = htmlobj.responseText;
+            document.write(head);
+        }
+        write1();
+    </script>
+    <!---<script src="js/head_2.js"></script>-->
+    <style>
+        a.J_menuItem {
+            border-left: 2px solid rgba(34, 36, 38, .1);
+            /* border-right: 2px solid rgba(34,36,38,.1); */
+        }
+
+        a.dropdown-toggle {
+            border-left: 2px solid rgba(34, 36, 38, .1);
+            /* border-right: 2px solid rgba(34,36,38,.1); */
+        }
+
+        .navbar-header {
+            width: auto;
+        }
+
+        #page-wrapper .gray-bg {
+            margin-left: 10em;
+            margin-right: 10em;
+        }
+
+        #wrapper {
+            width: 100%;
+            overflow-x: hidden;
+            background-color: #ffffff;
+        }
+
+        #d {
+            width: 80%;
+            boder: 1px solid #000;
+            height: 800px;
+            margin: auto;
+            padding: 0px;
+        }
+
+        #d1 {
+            width: 80%;
+            height: 100px;
+            boder: 1px solid #000;
+            margin-top: 0;
+            margin-right: auto;
+            margin-bottom: 200;
+            margin-left: auto;
+            padding-bottom: 200px;
+        }
+
+        #d2 {
+            width: 30%;
+            height: 100px;
+            float: left;
+            boder: 1px solid #000;
+            margin-light: 10px;
+            margin-left: 10px
+        }
+
+        #d3 {
+            width: 30%;
+            height: 100px;
+            boder: 1px solid #000;
+            float: right;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body class="gray-bg">
+    <script type="text/javascript">
+        function getTime() {
+
+            var dateObj = new Date();
+
+            var year = dateObj.getFullYear();
+
+            var month = dateObj.getMonth() + 1;
+
+            var date = dateObj.getDate();
+
+            if (month < 10) {
+                month = "0" + month;
+            }
+
+            if (date < 10) {
+                date = "0" + date;
+            }
+
+            var newDate = year + '-' + month + '-' + date;
+            return newDate;
+            document.getElementById("date1").innerHTML = newDate;//在div中写入时间
+        }
+
+    </script>
+
+    <div class="wrapper wrapper-content">
+        <div>
+            <ul class="breadcrumb" style="margin:0px 300px -10px 300px;font:bold 15px Georgia, serif">
+                <li><a href="home.html"><i class="icon home"></i>Home</a></li>
+                <i class="right chevron icon divider"></i>
+                <li class="active"><a href="genomic_variation.html">Genome sequence analysis</a></li>
+                <i class="right chevron icon divider"></i>
+                <li class="active">Genomic variation analysis</a></li>
+            </ul>
+        </div>
+
+        <div style="border-width:1px;margin: 5px 270px;padding:5px 15px;">
+
+            <div
+                style="border-style:dotted;border-radius:16px;border-width:1px;margin: 15px 10px;padding:25px;font-size:large">
+                <div style="margin: 10px 5px 15px">
+                    <form>
+                        <div class="row form-inline row">
+                            <div class='col-sm-6'>
+                                <div class="form-group">
+                                    <label for="formGroupInputLarge">Start date:</label>
+                                    <!--指定 date标记-->
+                                    <div class='input-group date col-xs-6' id='date_start'>
+                                        <input id="date_str" type='text' class="form-control" value="2020-01-23" readonly />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class='col-sm-6'>
+                                <div class="form-group">
+                                    <label>End date:</label>
+                                    <!--指定 date标记-->
+                                    <div class='input-group date col-xs-6' id='date_end'>
+                                        <input id="date_eof" type='text' class="form-control" value="2020-06-01" readonly />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>                            </div>
+                        </div>
+                    </form>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="submits()"
+                    style="float:bottom;margin:10px 20px">Submit</button>
+                <button id="rst" type="button" class="btn btn-primary" onclick="rstdate()"
+                    style="float:bottom;margin:10px 20px">Reset</button>
+                <i class="glyphicon glyphicon-question-sign" style="font-size:15px;float:bottom;margin:20px 20px">
+                    </i>
+            </div>
+
+            <div id="container" style="height:400%;margin:0 auto;width:80%"></div>
+
+            <div style="margin:10px 30px">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <p>To analyze the connections among 2019-nCoV epidemic, genome variation and public psychological stress state, we computes the median variation rate. Then, we can visualize the trend of variation rate under the real epidemic situation and public psychological stress state.
+						2019-nCoV genome sequences and variation data are download from 2019nCoVR (https://bigd.big.ac.cn/ncov/).</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+
+
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="js/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+
+        var dom = document.getElementById("container");
+        var myChart = echarts.init(dom);
+        var app = {};
+        option = null;
+        option = {
+            title: {
+                text: 'Visualization of  variation rate, real epidemic trend, and public psychological stress state',
+                top: 10,
+                left: 10
+            },
+            toolbox: {
+                show: true,
+                top: 10,
+                right: 10,
+                feature: {
+                    mark: { show: true },
+                    magicType: { show: true, type: ['line', 'bar'] },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
+                }
+            },
+			tooltip:
+            {
+                trigger: 'axis'
+            },
+            grid: {
+                top: 60,
+                right: 70,
+                bottom: 80,
+                left: 60
+            },
+            legend: {
+                top: 32,
+                left: 'center',
+                data: ['Newly confirmed cases', 'Median variation rate(%)',  'Positive emotion rate'],
+				textStyle: { //图例文字的样式
+                            fontSize: 16
+                        }
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ["2020-01-23","2020-01-24","2020-01-25","2020-01-26","2020-01-27","2020-01-28","2020-01-29","2020-01-30","2020-01-31","2020-02-01","2020-02-02","2020-02-03","2020-02-04","2020-02-05","2020-02-06","2020-02-07","2020-02-08","2020-02-09","2020-02-10","2020-02-11","2020-02-12","2020-02-13","2020-02-14","2020-02-15","2020-02-16","2020-02-17","2020-02-18","2020-02-19","2020-02-20","2020-02-21","2020-02-22","2020-02-23","2020-02-24","2020-02-25","2020-02-26","2020-02-27","2020-02-28","2020-02-29","2020-03-01","2020-03-02","2020-03-03","2020-03-04","2020-03-05","2020-03-06","2020-03-07","2020-03-08","2020-03-09","2020-03-10","2020-03-11","2020-03-12","2020-03-13","2020-03-14","2020-03-15","2020-03-16","2020-03-17","2020-03-18","2020-03-19","2020-03-20","2020-03-21","2020-03-22","2020-03-23","2020-03-24","2020-03-25","2020-03-26","2020-03-27","2020-03-28","2020-03-29","2020-03-30","2020-03-31","2020-04-01","2020-04-02","2020-04-03","2020-04-04","2020-04-05","2020-04-06","2020-04-07","2020-04-08","2020-04-09","2020-04-10","2020-04-11","2020-04-12","2020-04-13","2020-04-14","2020-04-15","2020-04-16","2020-04-17","2020-04-18","2020-04-19","2020-04-20","2020-04-21","2020-04-22","2020-04-23","2020-04-24","2020-04-25","2020-04-26","2020-04-27","2020-04-28","2020-04-29","2020-04-30","2020-05-01","2020-05-02","2020-05-03","2020-05-04","2020-05-05","2020-05-06","2020-05-07","2020-05-08","2020-05-09","2020-05-10","2020-05-11","2020-05-12","2020-05-13","2020-05-14","2020-05-15","2020-05-16","2020-05-17","2020-05-18","2020-05-19","2020-05-20","2020-05-21","2020-05-22","2020-05-23","2020-05-24","2020-05-25","2020-05-26","2020-05-27","2020-05-28","2020-05-29","2020-05-30","2020-05-31","2020-06-01"],
+                        interval: 2, //坐标刻度之间的显示间隔，默认就可以了（默认是不重叠）
+                        rotate: 38,   //调整数值改变倾斜的幅度（范围-90到90）
+						textStyle: {
+						  fontSize : 12      //更改坐标轴文字大小
+						}
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: "Newly confirmed cases number",
+                    nameLocation: "center",
+                    nameGap: 44,
+                    nameRotate: 90,
+                    nameTextStyle: {
+                        fontSize: 16,
+                    },
+					axisLabel: {
+					   show: true,
+						textStyle: {
+						  fontSize : 12      //更改坐标轴文字大小
+						}
+					 }
+                },
+                {
+                    type: 'value',
+                    name: "Variation rate(%)/\nPositive emotion rate",
+                    nameLocation: "center",
+                    nameGap: 35,
+                    nameRotate: 90,
+                    nameTextStyle: {
+                        fontSize: 16,
+                    },
+                    axisLabel: {
+                        show: true,
+                        interval: 'auto',
+                        formatter: '{value}',
+						textStyle: {
+						  fontSize : 14      //更改坐标轴文字大小
+						}
+                    }
+                }
+            ],
+            series: [
+                {
+                    name: 'Newly confirmed cases',
+                    type: 'line',
+                    smooth: true,
+                    yAxisIndex: 0,
+                    data: [259, 444, 688, 769, 1771, 1459, 1737, 1982, 2102, 2590, 2829, 3235, 3893, 3697, 3143, 3401, 2656, 3062, 2484, 2022, 15153, 5093, 2644, 2009, 2051, 1891, 1751, 820, 892, 399, 649, 416, 517, 411, 440, 329, 430, 579, 206, 128, 120, 143, 145, 103, 46, 45, 20, 31, 25, 11, 18, 27, 29, 39, 35, 84, 65, 116, 82, 102, 147, 99, 114, 118, 135, 128, 106, 98, 86, 93, 78, 73, 55, 75, 66, 86, 92, 56, 64, 113, 115, 99, 49, 52, 27, 31, 21, 36, 13, 37, 15, 9, 13, 14, 3, 6, 22, 4, 12, 3, 5, 7, 4, 2, 3, 6, 1, 14, 20, 1, 7, 6, 5, 9, 5, 10, 6, 5, 2, 13, 2, 3, 11, 7, 1, 3, 0, 18, 5, 18, 9]
+					},
+                {
+                    name: 'Median variation rate(%)',
+                    type: 'line',
+                    smooth: true,
+                    yAxisIndex: 1,
+                    data: [0.06688292,0.100324385,0.06688292,0.13376585,0.06688292,0.13376585,0.100324385,0.06688292,0.100324385,0.06688292,0.100324385,0.100324385,0.13376585,0.1672073,0.1672073,0.13376585,0.100324385,0.13376585,0.13376585,0.100324385,0.100324385,0.100324385,0.100324385,0.100324385,0.06688292,0.06688292,0.1672073,0.06688292,0.1672073,0.1672073,0.1672073,0.1672073,0.1672073,0.23409022,0.20064877,0.1672073,0.1672073,0.20064877,0.20064877,0.20064877,0.20064877,0.20064877,0.20064877,0.20064877,0.23409022,0.20064877,0.23409022,0.20064877,0.23409022,0.23409022,0.23409022,0.23409022,0.23409022,0.23409022,0.23409022,0.23409022,0.23409022,0.23409022,0.23409022,0.23409022,0.23409022,0.2675317,0.23409022,0.23409022,0.23409022,0.23409022,0.23409022,0.2675317,0.2675317,0.2675317,0.2675317,0.2675317,0.2675317,0.2675317,0.2675317,0.2675317,0.2675317,0.2675317,0.2675317,0.2675317,0.2675317,0.2675317,0.2675317,0.2675317,0.2675317,0.30097315,0.30097315,0.30097315,0.2675317,0.2675317,0.2675317,0.30097315,0.2675317,0.30097315,0.30097315,0.30097315,0.30097315,0.2675317,0.30097315,0.2675317,0.30097315,0.36785606,0.30097315,0.30097315,0.30097315,0.3344146,0.30097315,0.3344146,0.40129754,0.3344146,0.36785606,0.36785606,0.3344146,0.30097315,0.3344146,0.40129754,0.0,0.0,0.0,0.40129754,0.0,0.0,0.2675317,0.3344146,0.40129754,0.0,0.0,0.0,0.0,0.0,0.0]
+                },
+                {
+                    name: 'Positive emotion rate',
+                    type: 'line',
+                    smooth: true,
+                    yAxisIndex: 1,
+                    data: [0.19, 0.17, 0.12, 0.17, 0.08, 0.15, 0.08, 0.13, 0.16, 0.19, 0.15, 0.14, 0.17, 0.20, 0.18, 0.32, 0.24, 0.36, 0.41, 0.27, 0.33, 0.34, 0.32, 0.29, 0.16, 0.16, 0.11, 0.09, 0.09, 0.11, 0.12, 0.13, 0.12, 0.14, 0.12, 0.09, 0.11, 0.12, 0.15, 0.11, 0.12, 0.13, 0.11, 0.12, 0.13, 0.13, 0.10, 0.12, 0.10, 0.09, 0.10, 0.11, 0.10, 0.12, 0.12, 0.11, 0.08, 0.08, 0.09, 0.08, 0.09, 0.08, 0.08, 0.08, 0.05, 0.07, 0.08, 0.06, 0.08]
+					},
+
+            ]
+        };
+
+       if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+    </script>
+
+
+
+    <script language="javascript" type="text/javascript">
+
+        function write2() {
+
+            htmlobj = $.ajax({ url: "tail.html", async: false });
+            var tail = htmlobj.responseText;
+
+            document.write(tail);
+        }
+
+        write2();
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            var startDate = new Date('2020-01-23');
+            var endDate = new Date('2020-06-01');
+            $('#date_start').datetimepicker({
+                format: 'yyyy-mm-dd',
+                weekStart: 1,
+                language: 'cn',
+                minView: 'month',
+                autoclose: true,
+                todayBtn: true,
+                startDate: startDate,
+                endDate: endDate,
+                initialDate: startDate,
+                language: "en",
+            }).on("changeDate", function (ev) {
+                if (ev.date) {
+                    $('#date_end').datetimepicker('setStartDate', new Date(ev.date.valueOf()))
+                } else {
+                    $('#date_end').datetimepicker('setStartDate');
+                }
+            });
+
+            $('#date_end').datetimepicker({
+                format: 'yyyy-mm-dd',
+                weekStart: 1,
+                language: 'cn',
+                minView: 'month',
+                autoclose: true,
+                startDate: startDate,
+                endDate: endDate,
+                initialDate: endDate,
+                language: "en",
+            }).on("changeDate", function (ev) {
+                if (ev.date) {
+                    $('#date_start').datetimepicker('setEndDate', new Date(ev.date.valueOf()))
+                } else {
+                    $('#date_start').datetimepicker('setEndDate');
+                }
+            });
+        });
+    </script>
+
+    <!--<script src="js/tail_2.js"></script>-->
+
+</body >
+
+</html >

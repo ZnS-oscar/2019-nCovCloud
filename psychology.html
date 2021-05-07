@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>2019-nCovCloud</title>
+    <meta name="keywords" content="2019-NcoV,transmission,genome,psychological stress,LAUP,k-mer,bioinformatics">
+    <meta name="description"
+        content="Web service for 2019-NcoV transmission, genome, and psychological stress analysis">
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+    <link rel="shortcut icon" href="img/coronavirus_logo.png">
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="css/dataTables.semanticui.min.css">
+    <link rel="stylesheet" href="css/buttons.semanticui.min.css">
+    <link rel="stylesheet" href="css/select.semanticui.min.css">
+    <link rel="stylesheet" href="css/semantic.min.css">
+    <link rel="stylesheet" href="css/my.css">
+
+    <script src="js/semantic.min.js"></script>
+
+    <script language="javascript" type="text/javascript">
+
+        function write1() {
+
+            htmlobj = $.ajax({ url: "head.html", async: false });
+            var head = htmlobj.responseText;
+            document.write(head);
+
+
+        }
+
+        write1();
+    </script>
+
+
+    <!---<script src="js/head_2.js"></script>-->
+
+
+    <style>
+        a.J_menuItem {
+            border-left: 2px solid rgba(34, 36, 38, .1);
+            /* border-right: 2px solid rgba(34,36,38,.1); */
+        }
+
+        a.dropdown-toggle {
+            border-left: 2px solid rgba(34, 36, 38, .1);
+            /* border-right: 2px solid rgba(34,36,38,.1); */
+        }
+
+        .navbar-header {
+            width: auto;
+        }
+
+        #page-wrapper .gray-bg {
+            margin-left: 10em;
+            margin-right: 10em;
+			
+        }
+
+        #wrapper {
+            width: 100%;
+            overflow-x: hidden;
+            background-color: #ffffff;
+			
+        }
+
+        #d {
+            width: 80%;
+            boder: 1px solid #000;
+            height: 800px;
+            margin: auto;
+            padding: 0px;
+			
+        }
+
+        #d1 {
+            width: 80%;
+            height: 100px;
+            boder: 1px solid #000;
+            margin-top: 0;
+            margin-right: auto;
+            margin-bottom: 200;
+            margin-left: auto;
+            padding-bottom: 200px;
+			
+        }
+
+        #d2 {
+            width: 30%;
+            height: 100px;
+            float: left;
+            boder: 1px solid #000;
+            margin-light: 10px;
+            margin-left: 10px
+			
+        }
+
+        #d3 {
+            width: 30%;
+            height: 100px;
+            boder: 1px solid #000;
+            float: right;
+            margin-right: 10px;
+        }
+    </style>
+
+</head>
+
+
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content">
+        <div>
+            <ul class="breadcrumb" style="margin:0px 300px -30px 300px;font:bold 15px Georgia, serif">
+                <li><a href="home.html"><i class="icon home"></i>Home</a></li>
+                <i class="right chevron icon divider"></i>
+                <li class="active"><a href="psychology.html">Psychological stress assessment</a></li>
+                <i class="right chevron icon divider"></i>
+                <li class="active">Dynamic analysis of public emotional reaction</li>
+            </ul>
+        </div>
+
+        <div style="border-width:1px;margin: 15px 270px;padding:5px 15px;">
+
+            <div
+                style="border-style:dotted;border-width:1px;border-radius:16px;margin:35px 10px;padding:25px;font-size:medium">
+                <form>
+                    <div class="row form-inline row">
+                        <div class='col-sm-6'>
+                            <div class="form-group">
+                                <label for="formGroupInputLarge">Start date:</label>
+                                <!--指定 date标记-->
+                                <div class='input-group date col-xs-6' id='date_start'>
+                                    <input type='text' value="2020-01-23" class="form-control" id="txtDate1" readonly />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class='col-sm-6'>
+                            <div class="form-group">
+                                <label>End date:</label>
+                                <!--指定 date标记-->
+                                <div class='input-group date col-xs-6' id='date_end'>
+                                    <input type='text' value="2020-03-31" class="form-control" id="txtDate2" readonly />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="down()"
+                                style="float:bottom;margin:10px 20px">Download</button>
+                        </div>
+                    </div>
+                </form>
+                <!--<div>
+                <button type="button" class="btn btn-primary" onclick="" style="margin:1px 3px">Download</button>
+                 <button type="button" class="btn btn-primary" onclick="" style="margin:10px 20px">Reset</button>
+                
+            </div>-->
+            </div>
+
+            <div id="container" style="height: 500%;margin:0 auto; width:100%"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10" style="left:8%">
+                        <div class="ibox float-e-margins"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin:50px 30px">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <p>In order to obtain the Chinese public psychological stress data for 2019-nCoV, we built up a crawler program based on Weibo API, which crawled the data for all the tweets and comments about 2019-ncov from January 1 to March 31 in 2020.</p>
+						<p>we used SO-PMI and Word2Vec algorithms to determine the emotional polarity for the candidate words and screen new words for emotional polarity discrimination</p>
+						</div>
+
+                </div>
+            </div>
+
+            <!--       <h3 style="margin-left:20px;">社交语句情感分析</h3>
+        <div style="border-style:dotted;border-width:1px;border-radius:16px;margin:35px 10px;padding:25px;font-size:large">
+            <span style="position:relative;font:bold 15px Georgia, serif">Input(Chinese):</span><br>
+            <input type="text" name="sentence" size=67 width=400>
+			<span style="position:relative;font:bold 15px Georgia, serif">Result:</span><br>
+			<textarea name="name" cols=67 rows=3></textarea>
+            <div>
+                <button type="button" class="btn btn-primary" onclick="" style="margin:10px 30px;margin-left:50px">Submit</button>
+                <button type="button" class="btn btn-primary" onclick="" style="margin:10px 20px">Reset</button>
+                <i class="glyphicon glyphicon-question-sign" style="font-size:15px;margin:20px 30px">Help</i>
+            </div>
+        </div>-->
+
+        </div>
+
+    </div>
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+    <script src="js/LAUP.js"></script>
+
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="js/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+
+        function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+        }
+
+        function down() {
+
+            var param = "";
+            param = "xinguan/psychology_data.txt";
+            var c = "go_results";
+            getdata
+                ({
+                    cpg_param: param,
+                    cpg_path: c,
+                    callback: function (data) {
+                        data1 = data.msg1;
+                    }
+                });
+				
+            var from = $("#txtDate1").val();
+            ofrom = from;
+            var to = $("#txtDate2").val();
+            oto = to;
+            from = from.split("-");
+            from[1] = from[1].replace("02", "Feb");
+            from1 = from[2] + "-" + from[1];
+            to = to.split("-");
+            to[1] = to[1].replace("02", "Feb");
+            to1 = to[2] + "-" + to[1];
+			
+            data = data1.split(";");
+            data[1] = data[1].replace("[", "");
+            data[1] = data[1].replace("]", "");
+            date = data[1].split(",");
+            var start = 0;
+            var end = 0;
+            for (var i = 0; i < date.length; i++) {
+                if (date[i] == from1) {
+                    start = i;
+                }
+                if (date[i] == to1) {
+                    end = i;
+                }
+            }
+            data[3] = data[3].replace("[", "");
+            data[3] = data[3].replace("]", "");
+            pos = data[3].split(",");
+            data[5] = data[5].replace("[", "");
+            data[5] = data[5].replace("]", "");
+            neg = data[5].split(",");
+            var date1 = "[";
+            var pos1 = "[";
+            var neg1 = "[";
+            for (i = start; i < end; i++) {
+                date1 = date1 + date[i] + ",";
+                pos1 = pos1 + pos[i] + ",";
+                neg1 = neg1 + neg[i] + ",";
+            }
+            date1 = date1 + date[end] + "]";
+            pos1 = pos1 + pos[end] + "]";
+            neg1 = neg1 + neg[end] + "]";
+            text = data[0] + "\r\n" + date1 + "\r\n" + data[2] + "\r\n" + pos1 + "\r\n" + data[4] + "\r\n" + neg1;
+            var name = ofrom + "_" + oto + ".txt";
+			
+            download(name, text);
+        }
+
+        var dom = document.getElementById("container");
+        var myChart = echarts.init(dom);
+        var app = {};
+        option = null;
+
+        var timeData = [
+			'2020/1/22', '2020/1/23', '2020/1/24', '2020/1/25', '2020/1/26',
+            '2020/1/27', '2020/1/28', '2020/1/29', '2020/1/30', '2020/1/31',
+            '2020/2/1', '2020/2/2', '2020/2/3', '2020/2/4', '2020/2/5',
+            '2020/2/6', '2020/2/7', '2020/2/8', '2020/2/9', '2020/2/10',
+            '2020/2/11', '2020/2/12', '2020/2/13', '2020/2/14', '2020/2/15',
+            '2020/2/16', '2020/2/17', '2020/2/18', '2020/2/19', '2020/2/20',
+            '2020/2/21', '2020/2/22', '2020/2/23', '2020/2/24', '2020/2/25',
+            '2020/2/26', '2020/2/27', '2020/2/28', '2020/2/29','2020/3/1',
+			'2020/3/2','2020/3/3','2020/3/4','2020/3/5','2020/3/6','2020/3/7',
+			'2020/3/8','2020/3/9','2020/3/10','2020/3/11','2020/3/12','2020/3/13',
+			'2020/3/14','2020/3/15','2020/3/16','2020/3/17','2020/3/18','2020/3/19',
+			'2020/3/20','2020/3/21','2020/3/22','2020/3/23','2020/3/24','2020/3/25','2020/3/26',
+			'2020/3/27','2020/3/28','2020/3/29','2020/3/30','2020/3/31'
+        ];
+
+        timeData = timeData.map(function (str) {
+            return str.replace('2009/', '');
+        });
+
+        option = {
+            title: {
+                text: 'Public psychological stress assessment',
+                left: 'center'
+				
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    animation: false
+                }
+            },
+            legend: {
+                data: ['positive', 'negative'],
+                left: 10,
+				textStyle: { //图例文字的样式
+                            fontSize: 16
+                        }
+				
+            },
+            toolbox: {
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            axisPointer: {
+                link: { xAxisIndex: 'all' }
+            },
+            dataZoom: [
+                {
+                    show: true,
+                    realtime: true,
+                    start: 30,
+                    end: 70,
+                    xAxisIndex: [0, 1]
+                },
+                {
+                    type: 'inside',
+                    realtime: true,
+                    start: 30,
+                    end: 70,
+                    xAxisIndex: [0, 1]
+                }
+            ],
+            grid: [{
+                left: 50,
+                right: 50,
+                height: '35%'
+				
+            }, {
+                left: 50,
+                right: 50,
+                top: '55%',
+                height: '35%'
+				
+            }],
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: false,
+                    axisLine: { onZero: true },
+                    data: timeData,
+					axisLabel: {
+					   show: true,
+						textStyle: {
+						  fontSize : 13      //更改坐标轴文字大小
+						}
+					 }
+
+                },
+                {
+                    gridIndex: 1,
+                    type: 'category',
+                    boundaryGap: false,
+                    axisLine: { onZero: true },
+                    data: timeData,
+                    position: 'top',
+					axisLabel: {
+					   show: true,
+						textStyle: {
+						  fontSize : 13      //更改坐标轴文字大小
+						}
+					 }
+					
+                }
+            ],
+            yAxis: [
+                {
+                    name: 'positive(%)',
+                    type: 'value',
+                    max: 50,
+					nameTextStyle: {
+                        fontSize: 15,
+                    },
+					axisLabel: {
+					   show: true,
+						textStyle: {
+						  fontSize : 14      //更改坐标轴文字大小
+						}
+					 }
+                },
+                {
+                    gridIndex: 1,
+                    name: 'negative(%)',
+                    type: 'value',
+                    inverse: true,
+					nameTextStyle: {
+                        fontSize: 15,
+                    },
+					axisLabel: {
+					   show: true,
+						textStyle: {
+						  fontSize : 14      //更改坐标轴文字大小
+						}
+					 }
+                }
+            ],
+            series: [
+                {
+                    name: 'positive',
+                    type: 'line',
+                    symbolSize: 8,
+					textStyle: {
+						fontSize: 14
+						},
+                    smooth: true,
+                    hoverAnimation: false,
+                    data: [
+                        16.45,24.42,34.73,39.42,30.37,35.01,32.82,29.02,25.05,33.56,23.67,20.75,13.60,15.39,10.18,14.86,18.21,20.34,17.11,13.02,12.59,16.68,17.62,14.51,14.72,12.84,10.81,10.74,9.82,9.83,14.71,10.53,11.95,11.89,13.99,13.09,12.56,11.74,12.65,14.03,9.90,11.37,12.08,11.02,10.44,8.97,7.54,8.64,8.15,9.81,9.67,11.20,11.65,10.53,12.32,10.20,10.59,8.93,10.02,9.28,8.99,10.10,10.63,7.70,8.42,7.22,6.94,9.38,6.81,9.06
+                    ]
+                },
+                {
+                    name: 'negative',
+                    type: 'line',
+                    xAxisIndex: 1,
+                    yAxisIndex: 1,
+                    symbolSize: 8,
+                    smooth: true,
+                    hoverAnimation: false,
+                    data: [
+                        17.15, 18.89, 16.61, 12.27, 17.10, 8.31, 15.24, 7.87, 13.32, 15.56, 18.64, 14.54, 13.53, 16.91, 20.44, 17.57, 31.98, 24.01, 35.58, 40.97, 27.20, 33.20, 34.41, 31.98, 28.69, 16.17, 16.07, 10.78, 9.50, 9.44, 11.37, 11.51, 12.97, 12.28, 14.12, 12.10, 9.38, 10.91, 11.55, 14.66, 10.53, 12.34, 12.91, 11.43, 11.71, 12.97, 12.98, 10.12, 11.81, 9.89, 8.62, 9.84, 10.61, 10.47, 11.82, 12.25, 11.32, 7.72, 8.03, 9.48, 7.62, 9.26, 8.25, 7.83, 8.01, 5.22, 6.59, 7.78, 6.03, 7.84
+
+                    ]
+                }
+            ]
+        };;
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+
+    </script>
+
+
+
+    <script language="javascript" type="text/javascript">
+
+        function write2() {
+
+            htmlobj = $.ajax({ url: "tail.html", async: false });
+            var tail = htmlobj.responseText;
+
+            document.write(tail);
+        }
+
+        write2();
+    </script>
+
+
+    <script type="text/javascript">
+        $(function () {
+            var startDate = new Date('2020-01-23');
+            var endDate = new Date('2020-03-31');
+            $('#date_start').datetimepicker({
+                format: 'yyyy-mm-dd',
+                weekStart: 1,
+                language: 'cn',
+                minView: 'month',
+                autoclose: true,
+                todayBtn: true,
+                startDate: startDate,
+                endDate: endDate,
+                language: "en",
+            }).on("changeDate", function (ev) {
+                if (ev.date) {
+                    $('#date_end').datetimepicker('setStartDate', new Date(ev.date.valueOf()))
+                } else {
+                    $('#date_end').datetimepicker('setStartDate');
+                }
+            });
+
+            $('#date_end').datetimepicker({
+                format: 'yyyy-mm-dd',
+                weekStart: 1,
+                language: 'cn',
+                minView: 'month',
+                autoclose: true,
+                startDate: startDate,
+                endDate: endDate,
+                language: "en",
+            }).on("changeDate", function (ev) {
+                if (ev.date) {
+                    $('#date_start').datetimepicker('setEndDate', new Date(ev.date.valueOf()))
+                } else {
+                    $('#date_start').datetimepicker('setEndDate', new Date());
+                }
+            });
+        });
+
+    </script>
+
+    <!--<script src="js/tail_2.js"></script>-->
+
+</body>
+
+</html>

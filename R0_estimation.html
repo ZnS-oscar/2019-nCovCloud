@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="renderer" content="webkit">
+<title>2019-nCovCloud</title>
+<meta name="keywords" content="2019-NcoV,transmission,genome,psychological stress,LAUP,k-mer,bioinformatics">
+<meta name="description"
+        content="Web service for 2019-NcoV transmission, genome, and psychological stress analysis">
+<!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<link rel="shortcut icon" href="img/coronavirus_logo.png">
+<link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+<link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+<link href="css/animate.css" rel="stylesheet">
+<link href="css/style.css?v=4.1.0" rel="stylesheet">
+<script src="js/jquery.min.js"></script>
+<link rel="stylesheet" href="css/dataTables.semanticui.min.css">
+<link rel="stylesheet" href="css/buttons.semanticui.min.css">
+<link rel="stylesheet" href="css/select.semanticui.min.css">
+<link rel="stylesheet" href="css/semantic.min.css">
+<link rel="stylesheet" href="css/my.css">
+<script src="js/semantic.min.js"></script>
+<script language="javascript" type="text/javascript">
+
+        function write1() {
+
+            htmlobj = $.ajax({ url: "head.html", async: false });
+            var head = htmlobj.responseText;
+            document.write(head);
+
+
+        }
+
+        write1();
+    </script>
+<!---<script src="js/head_2.js"></script>-->
+<style>
+        a.J_menuItem {
+            border-left: 2px solid rgba(34, 36, 38, .1);
+            /* border-right: 2px solid rgba(34,36,38,.1); */
+        }
+
+        a.dropdown-toggle {
+            border-left: 2px solid rgba(34, 36, 38, .1);
+            /* border-right: 2px solid rgba(34,36,38,.1); */
+        }
+
+        .navbar-header {
+            width: auto;
+        }
+
+        #page-wrapper .gray-bg {
+            margin-left: 10em;
+            margin-right: 10em;
+        }
+
+        #wrapper {
+            width: 100%;
+            overflow-x: hidden;
+            background-color: #ffffff;
+        }
+
+        #d {
+            width: 80%;
+            boder: 1px solid #000;
+            height: 800px;
+            margin: auto;
+            padding: 0px;
+        }
+
+        #d1 {
+            width: 80%;
+            height: 100px;
+            boder: 1px solid #000;
+            margin-top: 0;
+            margin-right: auto;
+            margin-bottom: 200;
+            margin-left: auto;
+            padding-bottom: 200px;
+        }
+
+        #d2 {
+            width: 30%;
+            height: 100px;
+            float: left;
+            boder: 1px solid #000;
+            margin-light: 10px;
+            margin-left: 10px
+        }
+
+        #d3 {
+            width: 30%;
+            height: 100px;
+            boder: 1px solid #000;
+            float: right;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+<script type="text/javascript">
+
+        function getTime() {
+
+            var dateObj = new Date();
+
+            var year = dateObj.getFullYear();
+
+            var month = dateObj.getMonth() + 1;
+
+            var date = dateObj.getDate();
+
+            if (month < 10) {
+                month = "0" + month;
+            }
+
+            if (date < 10) {
+                date = "0" + date;
+            }
+
+            var newDate = year + '-' + month + '-' + date;
+            return newDate;
+            document.getElementById("date1").innerHTML = newDate;//在div中写入时间
+        }
+
+    </script>
+<div class="wrapper wrapper-content">
+  <div>
+    <ul class="breadcrumb" style="margin:0px 300px -10px 300px;font:bold 15px Georgia, serif">
+      <li><a href="home.html"><i class="icon home"></i>Home</a></li>
+      <i class="right chevron icon divider"></i>
+      <li class="active"><a href="epidemic_prediction.html">Infectious disease model</a></li>
+      <i class="right chevron icon divider"></i>
+      <li class="active">R0 change trend analysis</a></li>
+    </ul>
+  </div>
+  <div style="border-width:1px;margin: 5px 270px;padding:5px 15px;">
+    <div style="border-style:dotted;border-radius:16px;border-width:1px;margin: 15px 10px;padding:25px;font-size:large">
+      <div style="margin: 10px 5px">
+        <form>
+
+            <div class='col-sm-6'>
+              <div class="form-group">
+                <label for="formGroupInputLarge">Start date:</label>
+                <!--指定 date标记-->
+                <div class='input-group date col-xs-6' id='date_start'>
+                  <input type='text' id="data_start"  value="2020-01-20"  class="form-control" readonly />
+                  <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span> </div>
+              </div>
+            </div>
+            <div class='col-sm-6'>
+              <div class="form-group">
+                <label>End date:</label>
+                <!--指定 date标记-->
+                <div class='input-group date col-xs-6' id='date_end'>
+                  <input type='text' value="2020-05-01" class="form-control" id="txtDate2" readonly />
+                  <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          <div class='col-sm-6'>
+            <div class="form-group">
+              <label for="formGroupInputLarge">Infectious disease model:</label>
+              <select name="model" id ="model" >
+                <option value="SIR">SIR</option>
+                <option value="SEIR">SEIR</option>
+                <option value="SEIRQ">SEIRQ</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <button type="button" class="btn btn-primary" onClick="linktest()" id= "btn"
+                    style="float:bottom;margin:10px 20px">Submit</button>
+      <button type="button" class="btn btn-primary" onClick="shut()"
+                    style="float:bottom;margin:10px 20px">Reset</button>
+      <i class="glyphicon glyphicon-question-sign" style="font-size:15px;float:bottom;margin:20px 20px"> Help</i> </div>
+	<div id="wait" style="height:100%;margin:0 auto;text-align:center ;width:80%"  ></div>
+    <div id="res" style="height:300%;margin:0 auto;width:100%"></div>
+    <div style="margin:10px 30px">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <p>The epidemic data of infectious disease model  is connected to Akshare whhich provides the latest epidemic data from January 20 to May 1 through API interface, including the number of confirmed cases, suspected cases, deaths, etc. We process the data through python  scripts to adapt to the prediction model. For 14840 newly confirmed cases in Hubei Province on February 12, we apportioned the number of newly increased cases in proportion to the number of newly confirmed cases from February 7 to February 12 in the calculation process</p>
+          <p>R0，Basic reproduction number.
+            
+            
+            
+            It's how many people can be infected if a person gets sick.
+            
+            A more precise definition is: without external intervention, all people have no immunity. The average number of people who are infected with an infectious disease and how many others will be infected.
+            
+            R0 is calculated as follows: </p>
+          <img src="./img/R0.png" width="100" height="50" align="center">
+          <p> An important critical point of R0 is R0 = 1. The larger the number of R0, the more difficult it is to control the epidemic. </p>
+          <p> R0 < 1:
+            Infectious diseases will gradually disappear. </p>
+          <p> R0 = 1:
+            An epidemic that can become endemic. </p>
+          <p> R0 > 1:
+            Infectious diseases spread exponentially. But it won't last forever, because either it's completely destroyed and there are no healthy people. Or some people develop immunity after their illness.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="js/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<script type="text/javascript" src="js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript">
+
+var dom = document.getElementById("res");
+var myChart = echarts.init(dom);
+var app = {};
+
+
+
+option = null;
+option = {
+    title: {
+        text: 'R0 Dynamic trend analysis',
+        subtext: '2019-nCovCloud'
+    },
+    legend: {
+		 top: 32,
+        left: 'center',
+		 data: ['R0'],
+		textStyle: { //图例文字的样式
+                fontSize: 16
+              },
+
+    },
+    tooltip: {
+        trigger: 'item',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        },
+
+    },
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['2020-01-20', '2020-01-21', '2020-01-22', '2020-01-23', '2020-01-24', '2020-01-25', '2020-01-26', '2020-01-27', '2020-01-28', '2020-01-29', '2020-01-30', '2020-01-31', '2020-02-01', '2020-02-02', '2020-02-03', '2020-02-04', '2020-02-05', '2020-02-06', '2020-02-07', '2020-02-08', '2020-02-09', '2020-02-10', '2020-02-11', '2020-02-12', '2020-02-13', '2020-02-14', '2020-02-15', '2020-02-16', '2020-02-17', '2020-02-18', '2020-02-19', '2020-02-20', '2020-02-21', '2020-02-22', '2020-02-23', '2020-02-24', '2020-02-25', '2020-02-26', '2020-02-27', '2020-02-28', '2020-02-29', '2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05', '2020-03-06', '2020-03-07', '2020-03-08', '2020-03-09', '2020-03-10', '2020-03-11', '2020-03-12', '2020-03-13', '2020-03-14', '2020-03-15', '2020-03-16', '2020-03-17', '2020-03-18', '2020-03-19', '2020-03-20', '2020-03-21', '2020-03-22', '2020-03-23', '2020-03-24', '2020-03-25', '2020-03-26', '2020-03-27', '2020-03-28', '2020-03-29', '2020-03-30', '2020-03-31', '2020-04-01', '2020-04-02', '2020-04-03', '2020-04-04', '2020-04-05', '2020-04-06', '2020-04-07', '2020-04-08', '2020-04-09', '2020-04-10', '2020-04-11', '2020-04-12', '2020-04-13', '2020-04-14', '2020-04-15', '2020-04-16', '2020-04-17', '2020-04-18', '2020-04-19', '2020-04-20','2020-4-21','2020-4-22','2020-4-23','2020-4-24','2020-4-25','2020-4-26','2020-4-27','2020-4-28','2020-4-29','2020-4-30','2020-5-1'],
+									axisLabel: {
+					   show: true,
+						textStyle: {
+						  fontSize : 15      //更改坐标轴文字大小
+						}
+					 }
+    },
+    yAxis: {
+        type: 'value',
+       axisLabel: {
+            formatter: '{value}'
+        },
+							axisLabel: {
+					   show: true,
+						textStyle: {
+						  fontSize : 14      //更改坐标轴文字大小
+						}
+					 }
+    },
+
+    series: [
+{
+        name: 'R0',
+        type: 'line',
+        data: [3.427352497066514, 3.4731212510867326, 3.4598707413817253, 3.4212684821551487, 3.3710870608434766, 3.3168002226779008, 3.26222479526104, 3.2090317082802726, 3.1577522151702038, 3.10847170228131, 3.0611440772802934, 3.0156676994610807, 2.971941219369845, 2.9298684032037365, 2.8893807545306966, 2.850370955721164, 2.8127817964367328, 2.7765366353600953, 2.741563517083014, 2.707801005645842, 2.6751865478391537, 2.6436742268278204, 2.613205346395252, 2.5837319115730715, 2.5552098384912307, 2.527589864359605, 2.5008411591160717, 2.474914874838845, 2.4497814386893504, 2.425401236613208, 2.4017440374882155, 2.3787856922873103, 2.356484919160283, 2.334823980746932, 2.3137726913955623, 2.293309335145418, 2.273406076161352, 2.2540432805587414, 2.2352031324713266, 2.216861563676364, 2.1989950399246183, 2.1815963355482784, 2.164643858654408, 2.1481169884629763, 2.1320005499717745, 2.1162894158343613, 2.1009587918550126, 2.085994529816994, 2.071390919607359, 2.0571350719275077, 2.0432120564646983, 2.029606304212658, 2.016314381178855, 2.003325608899667, 1.9906265454939631, 1.978208063239272, 1.96606409166876, 1.954182480598315, 1.942558556329563, 1.9311803095015645, 1.9200443854125662, 1.909139447809762, 1.8984583197495066, 1.8879979765913377, 1.8777485749831198, 1.8677070349199112, 1.8578640293701458, 1.8482175952052429, 1.8387582592095244, 1.8294806323175115, 1.8203801497805476, 1.8114551162466193, 1.802700761751411, 1.7941052867482834, 1.7856720831442026, 1.7773890412509983, 1.7692632297975885, 1.7612761815837952, 1.7534352906769073, 1.7457362836963322, 1.73816893579714, 1.7307371644964875, 1.723429692483138, 1.7162479635558954, 1.70919231351644, 1.7022557750013736, 1.6954320743694644, 1.6887218504466324, 1.682123088127755, 1.6756325738075633, 1.6692443563654584, 1.6629601330166113, 1.6567769357583824, 1.6506931837667236, 1.644706057587443, 1.6388099280503055, 1.6330027283376922, 1.627286693977432, 1.6216592679908435, 1.6161192971029255, 1.6106564360349174, 1.605277491423392, 1.5999808165653064, 1.594759779072797, 1.5896178330901258, 1.5845490967672242, 1.5795520674037455, 1.5746252880614786, 1.5697673460622612, 1.5649806426476935, 1.5602608292413134, 1.555609722778219, 1.5510139272436942, 1.5464889453366528, 1.5420252689516798, 1.5376217604227256, 1.53327267025857, 1.528986195345616, 1.5247566764908227, 1.5205870825022807, 1.516463759559581, 1.5123944100093345, 1.5083869611093754, 1.5044228802451998, 1.500510099349306, 1.4966470075106872, 1.4928343348867208, 1.489069743221161, 1.4853490561262928, 1.4816798832103566, 1.4780523123023785, 1.47447142416045, 1.4709298525635566, 1.4674379025890307, 1.463980378214249, 1.4605704215513173, 1.4571979022413641, 1.45386740611162, 1.4505686364241444, 1.4473151578226637, 1.4440966688942998, 1.4409179584237388, 1.4377785421484581, 1.4346724893994631, 1.4315946128201844, 1.4285591322072804, 1.4255554552452727, 1.422588675956453, 1.4196471082311353, 1.4167472066654185, 1.4138715500189982, 1.4110310850935235, 1.4082254769767275, 1.4054427186865672, 1.4026890754504415, 1.3999681983970111, 1.3972747624688, 1.3946143807684361, 1.3919807441127487, 1.3893734789714807, 1.3867922216508455, 1.3842366181130596, 1.381712549092724, 1.3792072741440868, 1.3767329635322594, 1.37428307675834, 1.3718573074617455, 1.3694553579863902, 1.3670769392419082, 1.3647217705699681, 1.362396177770312, 1.3600867496305293, 1.3577997794900054, 1.3555417658004827, 1.3532990259006625, 1.351078023386643, 1.3488785332320536, 1.3467072905087643, 1.3445502330194101, 1.3424140579835215, 1.3402985698099568, 1.3382035800272913, 1.336128907190249, 1.3340743767870595, 1.3320324868152031, 1.3300176886997692, 1.3280151010333676, 1.32603190926422, 1.3240679710718395, 1.3221231506121272, 1.3201973184288962, 1.318282604747265, 1.3163943255456052, 1.3145168143164623, 1.3126497788654874, 1.3108089231837388, 1.3089782223402218, 1.307165521009519, 1.305370736581638, 1.3035937922375922, 1.3018262932512246, 1.3000763643887037, 1.2983439452401748, 1.296620452253962, 1.294914226798322, 1.2932252245443785, 1.2915446658562264, 1.2898811154331216, 1.288234544704485, 1.2866049302610831, 1.284983222333996, 1.2833691848207265, 1.2817717667982889, 1.280190965289015, 1.2786267821997315, 1.277069808919039, 1.2755198220508899, 1.2739957521664274, 1.272468891653564, 1.270967996600048, 1.2694737023591112, 1.2679857983677174, 1.2665140630987166, 1.265058542663236, 1.263609129272591, 1.2621656198742377, 1.2607381476656192, 1.2593267782005895, 1.2579210679895625, 1.2565314272251615, 1.255147240354192, 1.2537791048679818, 1.2524162294724412, 1.251058426582404, 1.2497165818598381, 1.2483907988096847, 1.2470699203064106, 1.245753766903026, 1.2444536238302115, 1.2431580482983122, 1.2418785323075185, 1.2406034380500501, 1.2393444674440108, 1.238089784558761, 1.2368392207894263, 1.235604799600194, 1.2343743769411781, 1.2331601979111646, 1.2319499087933368, 1.2307433480630448]
+
+}, ]
+
+};;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       
+    </script>
+<script language="javascript" type="text/javascript">
+
+        function write2() {
+
+            htmlobj = $.ajax({ url: "tail.html", async: false });
+            var tail = htmlobj.responseText;
+
+            document.write(tail);
+        }
+
+        write2();
+    </script>
+<script type="text/javascript">
+        $(function () {
+            var startDate = new Date('2020-01-20');
+            var endDate = new Date('2020-05-01');
+            $('#date_start').datetimepicker({
+                format: 'yyyy-mm-dd',
+                weekStart: 1,
+                language: 'cn',
+                minView: 'month',
+                autoclose: true,
+                todayBtn: true,
+                startDate: startDate,
+                endDate: endDate,
+                language: "en",
+            }).on("changeDate", function (ev) {
+                if (ev.date) {
+                    $('#date_end').datetimepicker('setStartDate', new Date(ev.date.valueOf()))
+                } else {
+                    $('#date_end').datetimepicker('setStartDate');
+                }
+            });
+
+            $('#date_end').datetimepicker({
+                format: 'yyyy-mm-dd',
+                weekStart: 1,
+                language: 'cn',
+                minView: 'month',
+                autoclose: true,
+                startDate: startDate,
+                endDate: endDate,
+                language: "en",
+            }).on("changeDate", function (ev) {
+                if (ev.date) {
+                    $('#date_start').datetimepicker('setEndDate', new Date(ev.date.valueOf()))
+                } else {
+                    $('#date_start').datetimepicker('setEndDate', new Date());
+                }
+            });
+        });
+    </script>
+<script type="text/javascript">
+ 
+　　function shut(){
+ 
+　location.reload();
+ 
+　　}
+ 
+　　</script>
+<script   type="text/javascript"   src="./js/Model.js"></script>
+<script   type="text/javascript" >
+		function linktest(){
+		var param = $("#model").val()+"_"+$("#data_start").val()+ "_R0.txt";
+		//document.getElementById('gamma').innerHTML = param;
+		var c="go_results";
+		$("#btn").attr("disabled",true);
+		var data_raw="";
+				getdata_model({
+					model_param: param,
+					model_path: c,//"D:\\AMPServer\\Homepage\\result\\model_data",//数据路径
+					callback: function(data)
+					{
+						data_raw=data.msg;
+						changeDataToEchartdata(data_raw);
+					}
+				});
+		}
+</script>
+<script>
+	
+			function changeDataToEchartdata(data1)
+		{
+			 //xman:数据转换成echarts使用的格式
+			 var result_arr = data1.split('\n');
+			 var date_str=result_arr[1];
+			 var R0_str= result_arr[3]; 
+			// document.getElementById('gamma').innerHTML = data1;
+			 ShowModel(goarrToGoresource(R0_str));
+			 }
+			 
+			 
+			 //字符串转换成数组对象	
+		function goarrToGoresource(data){
+		data=data.replace("[","");
+		data=data.replace("]","")
+		var arr=data.split(',');
+			return arr;
+		}
+		
+		
+		
+		function ShowModel(R0_arr){
+	
+
+		var dom = document.getElementById("res");
+		var myChart = echarts.init(dom);
+		var option = null;
+
+option = null;
+option = {
+    title: {
+        text: 'R0 Dynamic trend analysis',
+        subtext: '2019-nCovCloud'
+    },
+    legend: {
+		 top: 32,
+        left: 'center',
+		 data: ['R0'],
+		textStyle: { //图例文字的样式
+                fontSize: 16
+              },
+
+    },
+    tooltip: {
+        trigger: 'item',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        },
+
+    },
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['2020-01-20', '2020-01-21', '2020-01-22', '2020-01-23', '2020-01-24', '2020-01-25', '2020-01-26', '2020-01-27', '2020-01-28', '2020-01-29', '2020-01-30', '2020-01-31', '2020-02-01', '2020-02-02', '2020-02-03', '2020-02-04', '2020-02-05', '2020-02-06', '2020-02-07', '2020-02-08', '2020-02-09', '2020-02-10', '2020-02-11', '2020-02-12', '2020-02-13', '2020-02-14', '2020-02-15', '2020-02-16', '2020-02-17', '2020-02-18', '2020-02-19', '2020-02-20', '2020-02-21', '2020-02-22', '2020-02-23', '2020-02-24', '2020-02-25', '2020-02-26', '2020-02-27', '2020-02-28', '2020-02-29', '2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05', '2020-03-06', '2020-03-07', '2020-03-08', '2020-03-09', '2020-03-10', '2020-03-11', '2020-03-12', '2020-03-13', '2020-03-14', '2020-03-15', '2020-03-16', '2020-03-17', '2020-03-18', '2020-03-19', '2020-03-20', '2020-03-21', '2020-03-22', '2020-03-23', '2020-03-24', '2020-03-25', '2020-03-26', '2020-03-27', '2020-03-28', '2020-03-29', '2020-03-30', '2020-03-31', '2020-04-01', '2020-04-02', '2020-04-03', '2020-04-04', '2020-04-05', '2020-04-06', '2020-04-07', '2020-04-08', '2020-04-09', '2020-04-10', '2020-04-11', '2020-04-12', '2020-04-13', '2020-04-14', '2020-04-15', '2020-04-16', '2020-04-17', '2020-04-18', '2020-04-19', '2020-04-20','2020-4-21','2020-4-22','2020-4-23','2020-4-24','2020-4-25','2020-4-26','2020-4-27','2020-4-28','2020-4-29','2020-4-30','2020-5-1'],
+									axisLabel: {
+					   show: true,
+						textStyle: {
+						  fontSize : 15      //更改坐标轴文字大小
+						}
+					 }
+    },
+    yAxis: {
+        type: 'value',
+       axisLabel: {
+            formatter: '{value}'
+        },
+							axisLabel: {
+					   show: true,
+						textStyle: {
+						  fontSize : 14      //更改坐标轴文字大小
+						}
+					 }
+    },
+
+    series: [
+{
+        name: 'R0',
+        type: 'line',
+        data: R0_arr
+
+}]
+};
+			// 为echarts对象加载数据 
+				if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+
+		}		
+			 
+			 
+	</script>
+<!--<script src="js/tail_2.js"></script>-->
+</body >
+</html >

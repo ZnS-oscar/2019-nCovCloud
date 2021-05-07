@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>2019-nCovCloud</title>
+    <meta name="keywords" content="2019-NcoV,transmission,genome,psychological stress,LAUP,k-mer,bioinformatics">
+    <meta name="description"
+        content="Web service for 2019-NcoV transmission, genome, and psychological stress analysis">
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+    <link rel="shortcut icon" href="img/coronavirus_logo.png">
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="css/dataTables.semanticui.min.css">
+    <link rel="stylesheet" href="css/buttons.semanticui.min.css">
+    <link rel="stylesheet" href="css/select.semanticui.min.css">
+    <link rel="stylesheet" href="css/semantic.min.css">
+    <link rel="stylesheet" href="css/my.css">
+
+    <script src="js/semantic.min.js"></script>
+	<script>
+		function rstdate(){
+			var temp=document.getElementById("date_str");
+				temp.value="2020-01-23"; 
+			var temp=document.getElementById("date_eof");
+				temp.value="2020-06-01"; 
+			var temp=document.getElementById("data_len");
+				temp.value="12"; 
+		}
+	</script>
+    <script language="javascript" type="text/javascript">
+
+        function write1() {
+
+            htmlobj = $.ajax({ url: "head.html", async: false });
+            var head = htmlobj.responseText;
+            document.write(head);
+
+
+        }
+        function open1(name){
+            file=name+"碱基质量Q20.html";
+            window.open(file);
+        }
+        write1();
+    </script>
+
+
+    <!---<script src="js/head_2.js"></script>-->
+
+
+    <style>
+        .wrapper{
+    width: 100%;
+    margin: 0 auto;
+    height: 300px;
+    font-size: 0;
+}
+.content{
+    margin: 0 -10px;
+    /* -10px 为实际间隔的一半 */
+}
+.item-wrapper{
+    display: inline-block;
+    box-sizing: border-box;
+    width: 25%;
+    padding: 10px;
+    flex-wrap: wrap;
+    /* 10px为实际间隔的一半，此处主要用padding-left和padding-right，top和bottom为上下间距 */
+}
+.item{
+    background-color: #cccccc;
+    height: 80px;
+}
+
+        a.J_menuItem {
+            border-left: 2px solid rgba(34, 36, 38, .1);
+            /* border-right: 2px solid rgba(34,36,38,.1); */
+        }
+
+        a.dropdown-toggle {
+            border-left: 2px solid rgba(34, 36, 38, .1);
+            /* border-right: 2px solid rgba(34,36,38,.1); */
+        }
+
+        .navbar-header {
+            width: auto;
+        }
+
+        #page-wrapper .gray-bg {
+            margin-left: 10em;
+            margin-right: 10em;
+        }
+
+        #wrapper {
+            width: 100%;
+            overflow-x: hidden;
+            background-color: #ffffff;
+        }
+
+        #d {
+            width: 80%;
+            boder: 1px solid #000;
+            height: 800px;
+            margin: auto;
+            padding: 0px;
+        }
+
+        #d1 {
+            width: 80%;
+            height: 100px;
+            boder: 1px solid #000;
+            margin-top: 0;
+            margin-right: auto;
+            margin-bottom: 200;
+            margin-left: auto;
+            padding-bottom: 200px;
+        }
+
+        #d2 {
+            width: 30%;
+            height: 100px;
+            float: left;
+            boder: 1px solid #000;
+            margin-light: 10px;
+            margin-left: 10px
+        }
+
+        #d3 {
+            width: 30%;
+            height: 100px;
+            boder: 1px solid #000;
+            float: right;
+            margin-right: 10px;
+        }
+    </style>
+
+</head>
+
+
+
+<body class="gray-bg">
+	<div class="wrapper wrapper-content">
+
+		<!-- 【导航栏】 -->
+		<div >
+            <ul class="breadcrumb" style="margin:0px 300px -10px 300px;font:bold 15px Georgia, serif">
+                <li><a href="home.html"><i class="icon home"></i>Home</a></li>
+                <i class="right chevron icon divider"></i>
+                <li class="active"><a href="genomic_variation.html">Genome sequence analysis</a></li>
+                <i class="right chevron icon divider"></i>
+                <li class="active">Mutation analysis</a></li>
+            </ul>
+        </div>
+
+		<!-- 【自定义 商品 列表】 -->
+		<div class="row">
+
+			<!-- 第1行 商品 -->
+			<div style="display: table; border-spacing: 30px;" >
+                <div class="item-wrapper"
+						style="width: 100%; height: 100px; background-color: #F2F2F2; text-align: center;">
+						<!-- 菜品名称 -->
+						<!-- <div style="height: 5px;"></div> -->
+						<div>
+							<label style="font-size: 20px">PRJNA623797</label>
+						</div>
+						
+						<!-- 购买 -->
+						<div style="margin-top: 1px">
+							<button  class="btn btn-primary" onclick="open1('PRJNA623797')">查看</button>
+						</div>
+				</div>
+
+                <div class="item-wrapper"
+						style="width: 100%; height: 100px; background-color: #F2F2F2; text-align: center;">
+						<!-- 菜品名称 -->
+						<!-- <div style="height: 5px;"></div> -->
+						<div>
+							<label style="font-size: 20px">PRJNA632678</label>
+						</div>
+						
+						<!-- 购买 -->
+						<div style="margin-top: 1px">
+							<button class="btn btn-primary"  onclick="open1('PRJNA632678')">查看</button>
+						</div>
+				</div>
+
+                <div class="item-wrapper"
+						style="width: 100%; height: 100px; background-color: #F2F2F2; text-align: center;">
+						<!-- 菜品名称 -->
+						<!-- <div style="height: 5px;"></div> -->
+						<div>
+							<label style="font-size: 20px">PRJNA640656</label>
+						</div>
+						
+						<!-- 购买 -->
+						<div style="margin-top: 1px">
+							<button  class="btn btn-primary" onclick="open1('PRJNA640656')">查看</button>
+						</div>
+				</div>
+
+                <div class="item-wrapper"
+						style="width: 100%; height: 100px; background-color: #F2F2F2; text-align: center;">
+						<!-- 菜品名称 -->
+						<div style="height: 5px;"></div>
+						<div>
+							<label style="font-size: 20px">PRJNA645718</label>
+						</div>
+						
+						<!-- 购买 -->
+						<div style="margin-top: 1px">
+							<button  class="btn btn-primary" onclick="open1('PRJNA645718')">查看</button>
+						</div>
+				</div>
+
+                <div class="item-wrapper"
+						style="width: 100%; height: 100px; background-color: #F2F2F2; text-align: center;">
+						<!-- 菜品名称 -->
+						<div style="height: 5px;"></div>
+						<div>
+							<label style="font-size: 20px">PRJNA645970</label>
+						</div>
+						
+						<!-- 购买 -->
+						<div style="margin-top: 1px">
+							<button  class="btn btn-primary" onclick="open1('PRJNA645970')">查看</button>
+						</div>
+				</div>
+
+                <div class="item-wrapper"
+						style="width: 100%; height: 100px; background-color: #F2F2F2; text-align: center;">
+						<!-- 菜品名称 -->
+						<div style="height: 5px;"></div>
+						<div>
+							<label style="font-size: 20px">PRJNA649101</label>
+						</div>
+						
+						<!-- 购买 -->
+						<div style="margin-top: 1px">
+							<button  class="btn btn-primary" onclick="open1('PRJNA649101')">查看</button>
+						</div>
+				</div>
+
+                <div class="item-wrapper"
+						style="width: 100%; height: 100px; background-color: #F2F2F2; text-align: center;">
+						<!-- 菜品名称 -->
+						<div style="height: 5px;"></div>
+						<div>
+							<label style="font-size: 20px">PRJNA667434</label>
+						</div>
+						
+						<!-- 购买 -->
+						<div style="margin-top: 1px">
+							<button class="btn btn-primary"  onclick="open1('PRJNA667434')">查看</button>
+						</div>
+				</div>
+				
+                
+
+			</div>
+
+		</div>
+
+		
+
+	</div>
+</body>
+
+
+
+</html>

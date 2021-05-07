@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>2019-nCovCloud</title>
+    <meta name="keywords" content="2019-NcoV,transmission,genome,psychological stress,LAUP,k-mer,bioinformatics">
+    <meta name="description"
+        content="Web service for 2019-NcoV transmission, genome, and psychological stress analysis">
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+    <link rel="shortcut icon" href="img/coronavirus_logo.png">
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="css/dataTables.semanticui.min.css">
+    <link rel="stylesheet" href="css/buttons.semanticui.min.css">
+    <link rel="stylesheet" href="css/select.semanticui.min.css">
+    <link rel="stylesheet" href="css/semantic.min.css">
+    <link rel="stylesheet" href="css/my.css">
+
+    <script src="js/semantic.min.js"></script>
+
+    <script language="javascript" type="text/javascript">
+
+        function write1() {
+
+            htmlobj = $.ajax({ url: "head.html", async: false });
+            var head = htmlobj.responseText;
+            document.write(head);
+
+
+        }
+
+        write1();
+    </script>
+
+
+    <!---<script src="js/head_2.js"></script>-->
+
+
+    <style>
+        a.J_menuItem {
+            border-left: 2px solid rgba(34, 36, 38, .1);
+            /* border-right: 2px solid rgba(34,36,38,.1); */
+        }
+
+        a.dropdown-toggle {
+            border-left: 2px solid rgba(34, 36, 38, .1);
+            /* border-right: 2px solid rgba(34,36,38,.1); */
+        }
+
+        .navbar-header {
+            width: auto;
+        }
+
+        #page-wrapper .gray-bg {
+            margin-left: 10em;
+            margin-right: 10em;
+        }
+
+        #wrapper {
+            width: 100%;
+            overflow-x: hidden;
+            background-color: #ffffff;
+        }
+
+        #d {
+            width: 80%;
+            boder: 1px solid #000;
+            height: 800px;
+            margin: auto;
+            padding: 0px;
+        }
+
+        #d1 {
+            width: 80%;
+            height: 100px;
+            boder: 1px solid #000;
+            margin-top: 0;
+            margin-right: auto;
+            margin-bottom: 200;
+            margin-left: auto;
+            padding-bottom: 200px;
+        }
+
+        #d2 {
+            width: 30%;
+            height: 100px;
+            float: left;
+            boder: 1px solid #000;
+            margin-light: 10px;
+            margin-left: 10px
+        }
+
+        #d3 {
+            width: 30%;
+            height: 100px;
+            boder: 1px solid #000;
+            float: right;
+            margin-right: 10px;
+        }
+    </style>
+
+</head>
+
+
+
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content">
+        <div>
+            <ul class="breadcrumb" style="margin:0px 300px -10px 300px;font:bold 15px Georgia, serif">
+                <li><a href="home_1.html"><i class="icon home"></i>Home</a></li>
+                <i class="right chevron icon divider"></i>
+                <li class="active"><a href="genomic_variation.html">Genome sequence analysis</a></li>
+                <i class="right chevron icon divider"></i>
+                <li class="active">Genomic LAUPs analysis</a></li>
+            </ul>
+        </div>
+
+        <div style="border-width:1px;margin: 5px 270px;padding:5px 15px;">
+
+            <div
+                style="border-style:dotted;border-radius:16px;border-width:1px;margin: 15px 10px;padding:25px;font-size:large">
+
+                <form>
+                    <div class="row form-inline row">
+                        <div class='col-sm-6'>
+                            <div class="form-group">
+                                <label for="formGroupInputLarge">Start date：</label>
+                                <!--指定 date标记-->
+                                <div class='input-group date col-xs-6' id='date_start'>
+                                    <input type='text' id="left" class="form-control" readonly value="2020-01-23"/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class='col-sm-6'>
+                            <div class="form-group">
+                                <label>End date:</label>
+                                <!--指定 date标记-->
+                                <div class='input-group date col-xs-6' id='date_end'>
+                                    <input type='text' id="right" class="form-control" readonly />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>                        </div>
+                    </div>
+                </form>
+
+                <button type="button" class="btn btn-primary" onclick="show()" id="btn"
+                    style="float:bottom;margin:10px 20px">Submit</button>
+                <button type="button" class="btn btn-primary" onclick=""
+                    style="float:bottom;margin:10px 20px">Reset</button>
+                <i class="glyphicon glyphicon-question-sign" style="font-size:15px;float:bottom;margin:20px 20px">
+                    </i>
+            </div>
+            <div id="wait" style="height:400%;margin:0 auto;width:80%"></div>
+            <div id="container1" style="height:300%;margin:0 auto;width:100%"></div>
+
+            <div id="container2" style="height:300%;margin:0 auto;width:100%"></div>
+
+            <button type="button" class="btn btn-primary" onclick="download()"
+                style="float:bottom;margin:0px 0px 0px 1300px;">Data download</button>
+			<iframe id="ifile1" style="display:none"></iframe>
+            <div style="margin:10px 30px">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <p>In order to analyze the LAUPs sequence characteristics for 2019-nCoV genome, we use JBLA (Jellyfish-based LAUPs analysis application) to compute the un-derrepresented sequence and common LAUPs.</p>
+						<p>As a single-strand positive-sense RNA virus, 2019-nCoV follows all the molecular rules of the RNA world. Two of the primary rules are U as a nuclear base, instead of T in DNA, and secondary structure formed by single strand RNA molecule, mostly intramolecular. To apply k-mer and LAUP concepts in 2019-nCoV data analysis, we first convert the full sequence of the virus into k-mers in various lengths, and subsequently look for LAUPs by comparing with two k-mer pools: one con-tains a random k-mers generated in limited G+C and A+G content windows, and the other is generated from all unique and high-quality RNA viruses (in Baltimore four classes if necessary). In this protocol, LAUPs contain sequence-derive permutations that are excluded by RNA viruses, and therefore in doing so we are not only able avoid the impact of genome sequencing errors, but also discover sequences that negatively selected by viral populations. Virus-infected human, animal individuals, and populations often serve as hosts for viruses to select their best fitness by forming quasi-species where deleterious mutations are excluded so viral fitness is evolved. In this process, LAUPs as a set of sequences are subjected to selection in terms of secondary structures and targets of cellular RNA surveillance and interactive systems (such as RNA degradation and miRNA target-ing), which is complementary to selection of protein sequences. These analyses of LAUPs can help us to improve the accuracy of genome sequence and phylogenetic analyses as well as viral biology and host pathophysiology.</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="js/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+  	<script src="js/LAUP.js"></script>
+    
+      <script type="text/javascript">
+        var dom = document.getElementById("container1");
+        var myChart = echarts.init(dom);
+        var app = {};
+        option = null;
+        option = {
+            title: {
+                text: 'LAUPs number',
+                top: 10,
+                left: 10
+            },
+            tooltip:
+            {
+                trigger: 'axis'
+            },
+            toolbox: {
+                show: true,
+                top: 10,
+                right: 10,
+                feature: {
+                    mark: { show: true },
+                    magicType: { show: true, type: ['line', 'bar'] },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
+                }
+            },
+            grid: {
+                top: 60,
+                right: 70,
+                bottom: 80,
+                left: 60
+            },
+            legend: {
+                top: 32,
+                left: 'center',
+                data: ['2019-nCOV LAUPs', 'all Coronavirus LAUPs',],
+				textStyle: { //图例文字的样式
+                            fontSize: 16
+                        },
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['k=4', 'k=5', 'k=6', 'k=7', 'k=8', 'k=9', 'k=10', 'k=11', 'k=12', 'k=13'],
+					axisLabel: {
+					   show: true,
+						textStyle: {
+						  fontSize : 15      //更改坐标轴文字大小
+						}
+					 }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    min: 0,
+                    name: "LAUPs number(log10)",
+                    nameLocation: "center",
+                    nameTextStyle: {
+                        fontSize: 16,
+                    },
+					axisLabel: {
+					   show: true,
+						textStyle: {
+						  fontSize : 14      //更改坐标轴文字大小
+						}
+					 }
+                }
+            ],
+            series: [
+                {
+                    name: '2019-nCOV LAUPs',
+                    type: 'line',
+                    smooth: true,
+                    yAxisIndex: 0,
+                    data: changeArrToLog10([0, 0, 11, 1012, 18177, 160637, 900496, 4019805, 16588529, 66911326])
+                },
+                {
+                    name: 'all Coronavirus LAUPs',
+                    type: 'line',
+                    smooth: true,
+                    yAxisIndex: 0,
+                    data: changeArrToLog10([0, 0, 0, 0, 3, 1246, 82589, 1432044, 11451061, 59742460])
+                }
+            ]
+        };
+
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+
+        function changeArrToLog10(arr) {
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i] != 0) {
+                    arr[i] = Math.round(Math.log10(arr[i]) * 10000) / 10000;
+                }
+            }
+            return arr;
+        }
+    </script>
+
+    <script type="text/javascript">
+        var dom = document.getElementById("container2");
+        var myChart = echarts.init(dom);
+        var app = {};
+        option = null;
+        option = {
+            title: {
+                text: 'LAUPs CG rate',
+                top: 10,
+                left: 10
+            },
+            tooltip:
+            {
+                trigger: 'axis'
+            },
+            toolbox: {
+                show: true,
+                top: 10,
+                right: 10,
+                feature: {
+                    mark: { show: true },
+                    magicType: { show: true, type: ['line', 'bar'] },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
+                }
+            },
+            grid: {
+                top: 60,
+                right: 70,
+                bottom: 80,
+                left: 60
+            },
+            legend: {
+                top: 32,
+                left: 'center',
+                data: ['2019-nCOV LAUPs', 'all Coronavirus LAUPs',],
+				textStyle: { //图例文字的样式
+                            fontSize: 16
+                        }
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['k=4', 'k=5', 'k=6', 'k=7', 'k=8', 'k=9', 'k=10', 'k=11', 'k=12', 'k=13'],
+					axisLabel: {
+					   show: true,
+						textStyle: {
+						  fontSize : 14      //更改坐标轴文字大小
+						}
+					 }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: "",
+                    nameLocation: "center",
+                    nameGap: 35,
+                    nameTextStyle: {
+                        fontSize: 14,
+                    },
+                    axisLabel: {
+                        formatter: function (value) {
+                            return value * 100 + "%";
+                        },
+						fontSize: 16
+                    }
+                }
+            ],
+            series: [
+                {
+                    name: '2019-nCOV LAUPs',
+                    type: 'line',
+                    smooth: true,
+                    yAxisIndex: 0,
+                    data: [, , 0.9090909091, 0.7542348955, 0.6362436046, 0.5554808530, 0.5175077957, 0.5049312998, 0.5013173762, 0.5003449433]
+                },
+                {
+                    name: 'all Coronavirus LAUPs',
+                    type: 'line',
+                    smooth: true,
+                    yAxisIndex: 0,
+                    data: [, , , , 0.9166666667, 0.8020331728, 0.6741067212, 0.5852814070, 0.5331454876, 0.5106230644]
+                }
+            ]
+        };
+
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+    </script>
+
+    
+    
+  <script type="text/javascript">
+ 
+	function download()
+	{
+		var left=document.getElementById("left").value;
+		var right=document.getElementById("right").value;
+	
+		
+		var param=left+"-"+right+".zip";
+		var url = "http://150.158.131.230/download/"+param;
+		document.getElementById("ifile1").src=url;
+	}
+	
+	function show()
+	{
+		var left=document.getElementById("left").value;
+		var right=document.getElementById("right").value;
+
+		var param=left+";"+right+";";
+		var c="go_results";
+		var data1="";
+		$("#btn").attr("disabled",true);
+		getresult1
+		({
+			cpg_param: param,
+			cpg_path: c,
+			callback: function (data) 
+			{
+				data1 = data.msg1;
+			
+		
+		data1=data1.split("+");
+		cdata1=data1[0];
+		cdata2=data1[1];
+		var result1=[];
+		cdata1=cdata1.split(";");
+		var n=cdata1.length-1;
+		for(i=0;i<n;i++)
+		{
+		
+			var tmp=cdata1[i].split(":");
+			result1[i]=tmp[1];
+		}
+	
+        var dom = document.getElementById("container1");
+        var myChart = echarts.init(dom);
+        var app = {};
+        option = null;
+        option = {
+            title: {
+                text: 'LAUPs number',
+                top: 10,
+                left: 10
+            },
+            tooltip:
+            {
+                trigger: 'axis'
+            },
+            toolbox: {
+                show: true,
+                top: 10,
+                right: 10,
+                feature: {
+                    mark: { show: true },
+                    magicType: { show: true, type: ['line', 'bar'] },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
+                }
+            },
+            grid: {
+                top: 60,
+                right: 70,
+                bottom: 80,
+                left: 60
+            },
+            legend: {
+                top: 32,
+                left: 'center',
+                data: ['2019-nCOV LAUPs', 'all Coronavirus LAUPs',],
+				textStyle: { //图例文字的样式
+                            fontSize: 16
+                        },
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['k=5', 'k=6', 'k=7', 'k=8', 'k=9', 'k=10', 'k=11', 'k=12', 'k=13'],
+					axisLabel: {
+					   show: true,
+						textStyle: {
+						  fontSize : 15      //更改坐标轴文字大小
+						}
+					 }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    min: 0,
+                    name: "LAUPs number(log10)",
+                    nameLocation: "center",
+                    nameTextStyle: {
+                        fontSize: 16,
+                    },
+					axisLabel: {
+					   show: true,
+						textStyle: {
+						  fontSize : 14      //更改坐标轴文字大小
+						}
+					 }
+                }
+            ],
+            series: [
+                {
+                    name: '2019-nCOV LAUPs',
+                    type: 'line',
+                    smooth: true,
+                    yAxisIndex: 0,
+                    data: changeArrToLog10(result1)
+                },
+                {
+                    name: 'all Coronavirus LAUPs',
+                    type: 'line',
+                    smooth: true,
+                    yAxisIndex: 0,
+                    data: changeArrToLog10([0, 0, 0, 3, 1246, 82589, 1432044, 11451061, 59742460])
+                }
+            ]
+        };
+
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+
+        function changeArrToLog10(arr) {
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i] != 0) {
+                    arr[i] = Math.round(Math.log10(arr[i]) * 10000) / 10000;
+                }
+            }
+            return arr;
+        }
+
+	var result2=[];
+		cdata2=cdata2.split(";");
+		var n1=cdata2.length-1;
+		for(i=0;i<n1;i++)
+		{
+		
+			var tmp=cdata2[i].split(":");
+			result2[i]=tmp[1];
+		}
+	
+	
+        var dom1 = document.getElementById("container2");
+        var myChart1 = echarts.init(dom1);
+        var app = {};
+        option1 = null;
+        option1 = {
+            title: {
+                text: 'LAUPs CG rate',
+                top: 10,
+                left: 10
+            },
+            tooltip:
+            {
+                trigger: 'axis'
+            },
+            toolbox: {
+                show: true,
+                top: 10,
+                right: 10,
+                feature: {
+                    mark: { show: true },
+                    magicType: { show: true, type: ['line', 'bar'] },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
+                }
+            },
+            grid: {
+                top: 60,
+                right: 70,
+                bottom: 80,
+                left: 60
+            },
+            legend: {
+                top: 32,
+                left: 'center',
+                data: ['2019-nCOV LAUPs', 'all Coronavirus LAUPs',],
+				textStyle: { //图例文字的样式
+                            fontSize: 16
+                        }
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['k=5', 'k=6', 'k=7', 'k=8', 'k=9', 'k=10', 'k=11', 'k=12', 'k=13'],
+					axisLabel: {
+					   show: true,
+						textStyle: {
+						  fontSize : 14      //更改坐标轴文字大小
+						}
+					 }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: "",
+                    nameLocation: "center",
+                    nameGap: 35,
+                    nameTextStyle: {
+                        fontSize: 14,
+                    },
+                    axisLabel: {
+                        formatter: function (value) {
+                            return value * 100 + "%";
+                        },
+						fontSize: 16
+                    }
+                }
+            ],
+            series: [
+                {
+                    name: '2019-nCOV LAUPs',
+                    type: 'line',
+                    smooth: true,
+                    yAxisIndex: 0,
+                    data: result2
+                },
+                {
+                    name: 'all Coronavirus LAUPs',
+                    type: 'line',
+                    smooth: true,
+                    yAxisIndex: 0,
+                    data: [, , , 0.9166666667, 0.8020331728, 0.6741067212, 0.5852814070, 0.5331454876, 0.5106230644]
+                }
+            ]
+        };
+
+        if (option1 && typeof option1 === "object") {
+            myChart1.setOption(option1, true);
+        }
+		}
+		
+		});
+	
+	}
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            var startDate = new Date('2020-01-23');
+            var endDate = new Date();
+            $('#date_start').datetimepicker({
+                format: 'yyyy-mm-dd',
+                weekStart: 1,
+                language: 'cn',
+                minView: 'month',
+                autoclose: true,
+                todayBtn: true,
+                startDate: startDate,
+                endDate: endDate,
+                language: "en",
+            }).on("changeDate", function (ev) {
+                if (ev.date) {
+                    $('#date_end').datetimepicker('setStartDate', new Date(ev.date.valueOf()))
+                } else {
+                    $('#date_end').datetimepicker('setStartDate');
+                }
+            });
+
+            $('#date_end').datetimepicker({
+                format: 'yyyy-mm-dd',
+                weekStart: 1,
+                language: 'cn',
+                minView: 'month',
+                autoclose: true,
+                startDate: startDate,
+                endDate: endDate,
+                language: "en",
+            }).on("changeDate", function (ev) {
+                if (ev.date) {
+                    $('#date_start').datetimepicker('setEndDate', new Date(ev.date.valueOf()))
+                } else {
+                    $('#date_start').datetimepicker('setEndDate', new Date());
+                }
+            });
+        });
+	
+    </script>
+
+    <!--<script src="js/tail_2.js"></script>-->
+
+</body>
+
+</html>

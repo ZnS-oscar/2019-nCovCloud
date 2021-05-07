@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>2019-nCovCloud</title>
+    <meta name="keywords" content="2019-NcoV,transmission,genome,psychological stress,LAUP,k-mer,bioinformatics">
+    <meta name="description" content="Web service for 2019-NcoV transmission, genome, and psychological stress analysis">
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+
+    <link rel="shortcut icon" href="img/coronavirus_logo.png">
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+	
+    <link rel="stylesheet" href="css/dataTables.semanticui.min.css">
+    <link rel="stylesheet" href="css/buttons.semanticui.min.css">
+    <link rel="stylesheet" href="css/select.semanticui.min.css">
+    <link rel="stylesheet" href="css/semantic.min.css">
+    <link rel="stylesheet" href="css/my.css">
+
+    <script src="js/semantic.min.js"></script>
+
+    <script language="javascript" type="text/javascript">
+
+        function write1(){
+
+            htmlobj=$.ajax({url:"head.html",async:false});
+            var head=htmlobj.responseText;
+            document.write(head);
+
+
+        }
+
+        write1();
+    </script>
+
+
+    <!---<script src="js/head_2.js"></script>-->
+
+
+    <style>
+        a.J_menuItem {
+            border-left: 2px solid rgba(34,36,38,.1);
+            /* border-right: 2px solid rgba(34,36,38,.1); */
+        }
+        a.dropdown-toggle {
+            border-left: 2px solid rgba(34,36,38,.1);
+            /* border-right: 2px solid rgba(34,36,38,.1); */
+        }
+        .navbar-header {
+            width: auto;
+        }
+        #page-wrapper .gray-bg {
+            margin-left: 300em;
+            margin-right: 10em;
+        }
+        #wrapper {
+            width: 100%;
+            overflow-x: hidden;
+            background-color: #ffffff;
+        }
+        #d
+        {
+            width: 80%;
+            boder: 1px solid #000;
+            height: 800px;
+            margin: auto;
+            padding: 0px;
+        }
+        #d1{
+            width: 80%;
+            height: 100px;
+            boder: 1px solid #000;
+            margin-top: 0;
+            margin-right: auto;
+            margin-bottom: 200;
+            margin-left: auto;
+            padding-bottom: 200px;
+        }
+
+        #d2
+        {
+            width:30%;
+            height:100px;
+            float:left;
+            boder:1px solid #000;
+            margin-light:10px;
+            margin-left:10px
+        }
+        #d3
+        {
+            width:30%;
+            height:100px;
+            boder:1px solid #000;
+            float:right;
+            margin-right:10px;
+        }
+    </style>
+
+</head>
+
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content">
+    <div>
+        <ul class="breadcrumb" style="margin:0px 300px -30px 300px;font:bold 15px Georgia, serif">
+            <li><a href="home.html"><i class="icon home"></i>Home</a></li>
+            <i class="right chevron icon divider"></i>
+            <li class="active"><a href="psychology.html">Psychological stress assessment</a></li>
+            <i class="right chevron icon divider"></i>
+            <li class="active">Analysis of emotional words</li>
+        </ul>
+    </div>
+
+    <div style="border-width:1px;margin: 15px 270px;padding:5px 15px;">
+
+        <div style="border-style:dotted;border-width:1px;border-radius:16px;margin:35px 10px;padding:25px;font-size:large">
+            <div style="margin: 10px 5px">
+                <form class="bs-example bs-example-form" role="form" name="myform">
+                    <div class="input-group">
+                        <span style="position:relative;font:bold 20px Georgia, serif">Search for emotion words:</span>
+                        <input type="text" style="margin:0 20px" name="word" id="word" >
+                        <span style="margin-left:20px;font:20px Georgia, serif">Result:   </span>
+						<textarea name="name" id="result" cols=8 rows=1 style="resize:none;padding:5px;width: 250px;overflow: auto;" disabled="disabled"></textarea>
+                     <!--   <select style="margin:0 20px">
+                            <option value ="pos">正面</option>
+                            <option value ="neg">负面</option>
+                            <option value="neg-pos">中性</option>
+                            <option value="all">全部</option>
+                        </select>-->
+                    </div>
+                </form>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary" onclick="window.open("home.html")" style="margin:10px 30px">Submit</button>
+                <button type="button" class="btn btn-primary" onclick="clean()" style="margin:10px 20px">Reset</button>
+                
+            </div>
+        </div>
+        <div class="wordcloudmap" style="margin-top:50px">
+            <div class="row">
+                <div class="col-md-4" style="text-align:center;font:bold 20px Georgia">
+                    <p>Positive Words Cloud</p>
+                    <img src="img/pos.png" alt="positive" width="260px" height="260px">
+                </div>
+				
+                <div class="col-md-4" style="text-align:center;font:bold 20px Georgia">
+                    <p>Negative Words Cloud</p>
+                    <img src="img/neg.png" alt="negative" width="260px" height="260px">
+                </div>
+
+                <div class="col-md-4" style="text-align:center;font:bold 20px Georgia">
+                    <p>Neutral Words Cloud</p>
+                    <img src="img/neu.png" alt="neutral" width="260px" height="260px">
+                </div>
+            </div>
+        </div>
+ 
+
+<style type="text/css">
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+ 
+body {
+    margin: 10px;
+	
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+	
+}
+ 
+td,th {
+    padding: 0;
+	
+}
+ 
+.pure-table {
+    margin: 20px 500px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+    border: 1px solid #cbcbcb;
+	
+}
+ 
+.pure-table caption {
+    color: #000;
+    font: italic 85%/1 arial,sans-serif;
+    padding: 1em 0;
+    text-align: center;
+	
+}
+ 
+.pure-table td,.pure-table th {
+    border-left: 1px solid #cbcbcb;
+    border-width: 0 0 0 1px;
+    font-size: inherit;
+    margin: 0;
+    overflow: visible;
+    padding: .20em 1em;
+	
+
+}
+ 
+.pure-table thead {
+    background-color: #e0e0e0;
+    color: #000;
+    text-align: left;
+    vertical-align: bottom;
+	
+}
+ 
+.pure-table td {
+    background-color: transparent;
+	
+}
+ 
+.pure-table-bordered td {
+    border-bottom: 1px solid #cbcbcb;
+	
+}
+ 
+.pure-table-bordered tbody>tr:last-child>td {
+    border-bottom-width: 0;
+	
+}
+</style>
+
+<body>
+    
+        <div class="wordcloudmap" style="margin-top:50px">
+            <div class="row">
+                <div class="col-md-4" style="text-align:center;font:bold 20px Georgia">
+                    <img src="img/word1.png" alt="positive" width="260px" height="160px">
+                </div>
+				
+                <div class="col-md-4" style="text-align:center;font:bold 20px Georgia">
+                    <img src="img/word2.png" alt="negative" width="260px" height="160px">
+                </div>
+
+                <div class="col-md-4" style="text-align:center;font:bold 20px Georgia">
+                    <img src="img/word3.png" alt="neutral" width="260px" height="160px">
+                </div>
+            </div>
+
+</body>
+
+
+        <div style="margin:50px 30px">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+					<p>Here,we crawled the big Weibo data and employ left & right information entropy algorithm to locate the candidate words and construct the emotional dictionary of 2019-nCoV.</p>
+					<p>We can query words through the text box, and click the "Submit" button to have the emotional polarity for the word.</p>
+                    <p>The word clouds includes positive words, negative words, and neutral words. Here, font size of the word is positively related to its occurrence frequency. </p>
+				</div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+<script type="text/javascript">
+
+
+</script>
+<script src="js/LAUP.js"></script>
+<script type="text/javascript">
+function show()
+{
+	var param="";
+	param="xinguan/word_dic.txt";
+	var c="go_results";
+   			getdata
+				({
+					cpg_param: param,
+					cpg_path: c,
+					callback: function (data) {
+						data1 = data.msg1;
+					}
+				});
+				data=data1.split(";");
+				data[1]=data[1].replace("[","");
+				data[1]=data[1].replace("]","");
+				data[1]=data[1].split(",");
+				data[3]=data[3].replace("[","");
+				data[3]=data[3].replace("]","");
+				data[3]=data[3].split(",");
+				var test=myform.word.value;
+				var flag=0;
+				for(var i=0;i<data[1].length;i++)
+				{
+					if(data[1][i]==test)
+					{
+						flag=1;
+						$("#result").val(data[0]);
+						break;
+					}
+				}
+				for(var i=0;i<data[3].length;i++)
+				{
+					if(data[3][i]==test)
+					{
+						flag=1;
+						$("#result").val(data[2]);
+						break;
+					}
+				}
+				if(flag==0)
+				{
+					$("#result").val("It's not an emotional word");
+				}
+}
+function clean()
+{
+	$("#result").val("");	
+	$("#word").val("");
+}
+</script>
+
+<script language="javascript" type="text/javascript">
+
+    function write2(){
+
+        htmlobj=$.ajax({url:"tail.html",async:false});
+        var tail=htmlobj.responseText;
+
+        document.write(tail);
+    }
+
+    write2();
+</script>
+
+<!--<script src="js/tail_2.js"></script>-->
+
+</body>
+</html>
+
+
+

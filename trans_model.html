@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)https://meltingasphalt.com/interactive/going-critical/ -->
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="shortcut icon" href="https://meltingasphalt.com/interactive/going-critical/favicon.ico"
+    type="image/x-icon">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <link href="./trans_model_files/css" rel="stylesheet">
+  <link rel="pingback" href="https://meltingasphalt.com/xmlrpc.php">
+  <link rel="alternate" type="application/rss+xml" title="Melting Asphalt » Feed"
+    href="http://feeds.feedburner.com/MeltingAsphalt">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Going Critical">
+  <meta name="twitter:image" content="https://meltingasphalt.com//interactive/going-critical/card.png">
+  <meta name="twitter:description" content="Learn how things spread with playable simulations">
+  <meta property="og:url" content="https://meltingasphalt.com/interactive/going-critical">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Going Critical">
+  <meta property="og:description" content="Learn how things spread with playable simulations">
+  <meta property="og:image" content="https://meltingasphalt.com//interactive/going-critical/card.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="512">
+
+
+    
+
+<!--  -->
+<script src="js/jquery.min.js"></script>
+<!--  -->
+  
+  
+  
+  
+  
+  <script language="javascript" type="text/javascript">
+    
+    function write1() {
+
+        htmlobj = $.ajax({ url: "head.html", async: false });
+        var head = htmlobj.responseText;
+        document.write(head);
+
+
+    }
+
+    write1();
+</script>
+
+  
+  <link rel="stylesheet" id="mailchimp-for-wp-form-css" href="./trans_model_files/form.min.css" media="all">
+  <title>Going Critical — Melting Asphalt</title>
+  <link href="./trans_model_files/main.b7016bad.chunk.css" rel="stylesheet">
+  <style data-jss="" data-meta="MuiTouchRipple">
+    .jss48 {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 0;
+      position: absolute;
+      /* overflow: hidden; */
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .jss49 {
+      top: 0;
+      left: 0;
+      width: 50px;
+      height: 50px;
+      opacity: 0;
+      position: absolute;
+    }
+
+    .jss50 {
+      opacity: 0.3;
+      transform: scale(1);
+      animation: mui-ripple-enter 550ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .jss51 {
+      animation-duration: 200ms;
+    }
+
+    .jss52 {
+      width: 100%;
+      height: 100%;
+      opacity: 1;
+      display: block;
+      border-radius: 50%;
+      background-color: currentColor;
+    }
+
+    .jss53 {
+      opacity: 0;
+      animation: mui-ripple-exit 550ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .jss54 {
+      top: 0;
+      left: 0;
+      position: absolute;
+      animation: mui-ripple-pulsate 2500ms cubic-bezier(0.4, 0, 0.2, 1) 200ms infinite;
+    }
+
+    @-webkit-keyframes mui-ripple-enter {
+      0% {
+        opacity: 0.1;
+        transform: scale(0);
+      }
+
+      100% {
+        opacity: 0.3;
+        transform: scale(1);
+      }
+    }
+
+    @-webkit-keyframes mui-ripple-exit {
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @-webkit-keyframes mui-ripple-pulsate {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(0.92);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+  <style data-jss="" data-meta="MuiButtonBase">
+    .jss29 {
+      color: inherit;
+      border: 0;
+      margin: 0;
+      cursor: pointer;
+      display: inline-flex;
+      outline: none;
+      padding: 0;
+      position: relative;
+      align-items: center;
+      user-select: none;
+      border-radius: 0;
+      vertical-align: middle;
+      justify-content: center;
+      -moz-appearance: none;
+      text-decoration: none;
+      background-color: transparent;
+      -webkit-appearance: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .jss29::-moz-focus-inner {
+      border-style: none;
+    }
+
+    .jss29.jss30 {
+      cursor: default;
+      pointer-events: none;
+    }
+  </style>
+  <style data-jss="" data-meta="MuiSlider">
+    .jss34 {
+      width: 100%;
+      cursor: pointer;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .jss34.jss43 {
+      cursor: no-drop;
+    }
+
+    .jss34.jss47 {
+      height: 100%;
+    }
+
+    .jss35 {
+      position: relative;
+    }
+
+    .jss35.jss47 {
+      height: 100%;
+    }
+
+    .jss36 {
+      top: 50%;
+      width: 100%;
+      height: 2px;
+      position: absolute;
+      transform: translate(0, -50%);
+      transition: width 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, height 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, transform 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+      background-color: #3f51b5;
+    }
+
+    .jss36.jss46 {
+      transition: none;
+      will-change: transform;
+    }
+
+    .jss36.jss43 {
+      box-shadow: none;
+      background-color: #bdbdbd;
+    }
+
+    .jss36.jss47 {
+      top: initial;
+      left: 50%;
+      width: 2px;
+      bottom: 0;
+      height: 100%;
+      transform: translate(-50%, 0);
+    }
+
+    .jss37 {
+      left: 0;
+      z-index: 1;
+      transform-origin: left bottom;
+    }
+
+    .jss38 {
+      right: 0;
+      opacity: 0.24;
+      transform-origin: right top;
+    }
+
+    .jss38.jss47 {
+      top: 0;
+    }
+
+    .jss39 {
+      z-index: 2;
+      position: relative;
+      transition: transform 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, box-shadow 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+    }
+
+    .jss39.jss46 {
+      transition: none;
+      will-change: transform;
+    }
+
+    .jss39.jss47 {
+      bottom: 0;
+      height: 100%;
+    }
+
+    .jss40 {
+      flip: false;
+      left: 0;
+      width: 12px;
+      height: 12px;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      transition: transform 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, box-shadow 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+      border-radius: 50%;
+      background-color: #3f51b5;
+    }
+
+    .jss40.jss45,
+    .jss40:hover {
+      box-shadow: 0px 0px 0px 9px rgba(63, 81, 181, 0.16);
+    }
+
+    .jss40.jss46 {
+      box-shadow: 0px 0px 0px 18px rgba(63, 81, 181, 0.16);
+    }
+
+    .jss40.jss43 {
+      width: 9px;
+      cursor: no-drop;
+      height: 9px;
+      background-color: #bdbdbd;
+    }
+
+    .jss40.jss44 {
+      box-shadow: 0px 0px 0px 18px rgba(63, 81, 181, 0.16);
+    }
+
+    .jss41 {
+      background-color: transparent;
+    }
+
+    .jss42 {
+      width: inherit;
+      height: inherit;
+    }
+  </style>
+  <style data-jss="" data-meta="MuiButton">
+    .jss3 {
+      color: rgba(0, 0, 0, 0.87);
+      padding: 8px 16px;
+      font-size: 0.875rem;
+      min-width: 64px;
+      box-sizing: border-box;
+      min-height: 36px;
+      transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      font-weight: 500;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .jss3:hover {
+      text-decoration: none;
+      background-color: rgba(0, 0, 0, 0.08);
+    }
+
+    .jss3.jss23 {
+      color: rgba(0, 0, 0, 0.26);
+    }
+
+    @media (hover: none) {
+      .jss3:hover {
+        background-color: transparent;
+      }
+    }
+
+    .jss3:hover.jss23 {
+      background-color: transparent;
+    }
+
+    .jss4 {
+      width: 100%;
+      display: inherit;
+      align-items: inherit;
+      justify-content: inherit;
+    }
+
+    .jss6 {
+      color: #3f51b5;
+    }
+
+    .jss6:hover {
+      background-color: rgba(63, 81, 181, 0.08);
+    }
+
+    @media (hover: none) {
+      .jss6:hover {
+        background-color: transparent;
+      }
+    }
+
+    .jss7 {
+      color: #f50057;
+    }
+
+    .jss7:hover {
+      background-color: rgba(245, 0, 87, 0.08);
+    }
+
+    @media (hover: none) {
+      .jss7:hover {
+        background-color: transparent;
+      }
+    }
+
+    .jss11 {
+      border: 1px solid rgba(0, 0, 0, 0.23);
+    }
+
+    .jss12 {
+      color: #3f51b5;
+      border: 1px solid rgba(63, 81, 181, 0.5);
+    }
+
+    .jss12:hover {
+      border: 1px solid #3f51b5;
+      background-color: rgba(63, 81, 181, 0.08);
+    }
+
+    .jss12.jss23 {
+      border: 1px solid rgba(0, 0, 0, 0.26);
+    }
+
+    @media (hover: none) {
+      .jss12:hover {
+        background-color: transparent;
+      }
+    }
+
+    .jss13 {
+      color: #f50057;
+      border: 1px solid rgba(245, 0, 87, 0.5);
+    }
+
+    .jss13:hover {
+      border: 1px solid #f50057;
+      background-color: rgba(245, 0, 87, 0.08);
+    }
+
+    .jss13.jss23 {
+      border: 1px solid rgba(0, 0, 0, 0.26);
+    }
+
+    @media (hover: none) {
+      .jss13:hover {
+        background-color: transparent;
+      }
+    }
+
+    .jss14 {
+      color: rgba(0, 0, 0, 0.87);
+      box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+      background-color: #e0e0e0;
+    }
+
+    .jss14.jss22 {
+      box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    }
+
+    .jss14:active {
+      box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+    }
+
+    .jss14.jss23 {
+      color: rgba(0, 0, 0, 0.26);
+      box-shadow: none;
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+
+    .jss14:hover {
+      background-color: #d5d5d5;
+    }
+
+    @media (hover: none) {
+      .jss14:hover {
+        background-color: #e0e0e0;
+      }
+    }
+
+    .jss14:hover.jss23 {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+
+    .jss15 {
+      color: #fff;
+      background-color: #3f51b5;
+    }
+
+    .jss15:hover {
+      background-color: #303f9f;
+    }
+
+    @media (hover: none) {
+      .jss15:hover {
+        background-color: #3f51b5;
+      }
+    }
+
+    .jss16 {
+      color: #fff;
+      background-color: #f50057;
+    }
+
+    .jss16:hover {
+      background-color: #c51162;
+    }
+
+    @media (hover: none) {
+      .jss16:hover {
+        background-color: #f50057;
+      }
+    }
+
+    .jss20 {
+      width: 56px;
+      height: 56px;
+      padding: 0;
+      min-width: 0;
+      box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+      border-radius: 50%;
+    }
+
+    .jss20:active {
+      box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12);
+    }
+
+    .jss21 {
+      width: auto;
+      height: 48px;
+      padding: 0 16px;
+      min-width: 48px;
+      border-radius: 24px;
+    }
+
+    .jss24 {
+      color: inherit;
+    }
+
+    .jss25 {
+      width: 40px;
+      height: 40px;
+    }
+
+    .jss26 {
+      padding: 7px 8px;
+      min-width: 64px;
+      font-size: 0.8125rem;
+      min-height: 32px;
+    }
+
+    .jss27 {
+      padding: 8px 24px;
+      min-width: 112px;
+      font-size: 0.9375rem;
+      min-height: 40px;
+    }
+
+    .jss28 {
+      width: 100%;
+    }
+  </style>
+  <style data-jss="">
+    .jss1 {
+      background: linear-gradient(0deg, #f0f0f0 30%, #f8f8f8 90%);
+    }
+
+    .jss2 {
+      text-transform: capitalize;
+    }
+  </style>
+  <style data-jss="">
+    .jss32 {
+      background: linear-gradient(0deg, #aaf8aa 30%, #bbf8bb 90%);
+    }
+
+    .jss33 {
+      text-transform: capitalize;
+    }
+  </style>
+</head>
+
+<body><noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root">
+    
+    <div class="main-container">
+      
+      <!-- <div class="blank-l"></div> -->
+     
+     
+      <div class="content"> 
+        <div class="post-content" deep="3">
+         
+        </div>
+        <div class="blank-r"></div>
+        <div class="footer"></div>
+      </div>
+  </div>
+  <script>!function (f) { function e(e) { for (var r, t, n = e[0], o = e[1], u = e[2], i = 0, l = []; i < n.length; i++)t = n[i], c[t] && l.push(c[t][0]), c[t] = 0; for (r in o) Object.prototype.hasOwnProperty.call(o, r) && (f[r] = o[r]); for (s && s(e); l.length;)l.shift()(); return p.push.apply(p, u || []), a() } function a() { for (var e, r = 0; r < p.length; r++) { for (var t = p[r], n = !0, o = 1; o < t.length; o++) { var u = t[o]; 0 !== c[u] && (n = !1) } n && (p.splice(r--, 1), e = i(i.s = t[0])) } return e } var t = {}, c = { 2: 0 }, p = []; function i(e) { if (t[e]) return t[e].exports; var r = t[e] = { i: e, l: !1, exports: {} }; return f[e].call(r.exports, r, r.exports, i), r.l = !0, r.exports } i.m = f, i.c = t, i.d = function (e, r, t) { i.o(e, r) || Object.defineProperty(e, r, { enumerable: !0, get: t }) }, i.r = function (e) { "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(e, "__esModule", { value: !0 }) }, i.t = function (r, e) { if (1 & e && (r = i(r)), 8 & e) return r; if (4 & e && "object" == typeof r && r && r.__esModule) return r; var t = Object.create(null); if (i.r(t), Object.defineProperty(t, "default", { enumerable: !0, value: r }), 2 & e && "string" != typeof r) for (var n in r) i.d(t, n, function (e) { return r[e] }.bind(null, n)); return t }, i.n = function (e) { var r = e && e.__esModule ? function () { return e.default } : function () { return e }; return i.d(r, "a", r), r }, i.o = function (e, r) { return Object.prototype.hasOwnProperty.call(e, r) }, i.p = "/interactive/going-critical/"; var r = window.webpackJsonp = window.webpackJsonp || [], n = r.push.bind(r); r.push = e, r = r.slice(); for (var o = 0; o < r.length; o++)e(r[o]); var s = n; a() }([])</script>
+  <script src="./trans_model_files/1.b66f1e4e.chunk.js"></script>
+  <script src="./trans_model_files/sir.js"></script>
+</body>
+
+</html>

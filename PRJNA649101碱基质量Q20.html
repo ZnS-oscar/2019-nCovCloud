@@ -1,0 +1,294 @@
+﻿<!--
+    THIS EXAMPLE WAS DOWNLOADED FROM https://echarts.apache.org/examples/zh/editor.html?c=line-simple
+-->
+<!DOCTYPE html>
+<html style="height: 100%">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body style="height: 100%; margin: 0">
+        <div id="container" style="height: 100%"></div>
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+        <!-- Uncomment this line if you want to dataTool extension
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/extension/dataTool.min.js"></script>
+        -->
+        <!-- Uncomment this line if you want to use gl extension
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+        -->
+        <!-- Uncomment this line if you want to echarts-stat extension
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+        -->
+        <!-- Uncomment this line if you want to use map
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/map/js/china.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/map/js/world.js"></script>
+        -->
+        <!-- Uncomment these two lines if you want to use bmap extension
+        <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=<Your Key Here>"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/extension/bmap.min.js"></script>
+        -->
+
+        <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+
+var option;
+
+
+
+
+option = {
+
+    title: {
+        text: 'PRJNA643530_碱基质量Q20:同一变异类型下，左为正链，右为负链',
+    },
+    tooltip: {
+        
+        trigger: 'axis',
+        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    legend: {
+        top:26,
+        left:'right',
+        data: ['0-0.05', '0.05-0.1', '0.1-0.15', '0.15-0.2', '0.2-0.25', '0.25-0.3', '0.3-0.35', '0.35-0.4', '0.4-0.45','0.45-0.5']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: [
+        {
+            type: 'category',
+            data: ['A-C', 'A-G', 'A-U', 'C-A', 'C-G', 'C-U', 'G-A','G-C','G-U','U-A','U-C','U-G']
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value'
+        }
+    ],
+    series: [
+        //栈‘0’表示正链
+        //栈‘1’表示负链
+        {
+            name: '0-0.05',
+            color:'rgba(255,140,0,1)',
+            type: 'bar',
+            stack: '0',
+            emphasis: {
+                focus: 'series'
+            },
+            data: [5134,5165,6757,3396,2859,4471,3869,3137,4322,7200,6577,4468]
+        },
+         {
+            name: '0.05-0.1',
+            color:'rgba(6,82,221,1)',
+            type: 'bar',
+            stack: '0',
+            emphasis: {
+                focus: 'series'
+            },
+            data: [96,91,106,29,56,37,65,93,63,57,79,58]
+        },
+        {
+            name: '0.1-0.15',
+             color:'rgba(255,79,255,1)',
+            type: 'bar',
+            stack: '0',
+            emphasis: {
+                focus: 'series'
+            },
+            data: [36,32,37,13,17,16,20,27,15,21,26,26]
+        },
+        {
+            name: '0.15-0.2',
+            color:'rgba(117,0,117,1)',
+            type: 'bar',
+            stack: '0',
+            emphasis: {
+                focus: 'series'
+            },
+            data: [30,20,24,6,12,13,13,13,12,12,18,14]
+        },
+        {
+            name: '0.2-0.25',
+            color:'rgba(200,60,35,1)',
+            type: 'bar',
+            stack: '0',
+            emphasis: {
+                focus: 'series'
+            },
+            data:[13,16,16,4,5,7,7,6,5,6,13,8]
+        },
+        {
+            name: '0.25-0.3',
+            color:'rgba(242,236,222,1)',
+            type: 'bar',
+            stack: '0',
+            emphasis: {
+                focus: 'series'
+            },
+            data: [9,7,16,1,5,3,7,7,3,3,5,4]
+        },
+        {
+            name: '0.3-0.35',
+            color:'rgba(61,59,79,1)',
+            type: 'bar',
+            stack: '0',
+            emphasis: {
+                focus: 'series'
+            },
+            data: [4,8,10,4,3,3,2,5,1,6,7,2]
+        },
+        {
+            name: '0.35-0.4',
+            color:'rgba(214,236,240,1)',
+            type: 'bar',
+            stack: '0',
+            emphasis: {
+                focus: 'series'
+            },
+            data:[4,2,7,4,0,1,1,3,2,4,4,2]
+        },
+         {
+            name: '0.4-0.45',
+            color:'rgba(228,198,208,1)',
+            type: 'bar',
+            stack: '0',
+            emphasis: {
+                focus: 'series'
+            },
+            data: [1,0,2,1,3,4,0,1,2,1,2,0]
+        },
+         {
+            name: '0.45-0.5',
+            color:'rgba(220,48,35,1)',
+            type: 'bar',
+            stack: '0',
+            emphasis: {
+                focus: 'series'
+            },
+            data:[1,2,1,1,2,2,3,1,1,1,2,4]
+
+        },
+        
+        
+        
+        
+        {
+            name: '0-0.05',
+            color:'rgba(255,140,0,0.5)',
+            type: 'bar',
+            stack: '1',
+            emphasis: {
+                focus: 'series'
+            },
+            data: [4555,5989,6332,3605,3137,3891,4642,2810,4063,7591,5462,5362]
+        },
+         {
+            name: '0.05-0.1',
+            color:'rgba(6,82,221,0.5)',
+            type: 'bar',
+            stack: '1',
+            emphasis: {
+                focus: 'series'
+            },
+            data:[47,84,64,57,61,55,33,33,31,103,75,108]
+        },
+        {
+            name: '0.1-0.15',
+            color:'rgba(255,79,255,0.5)',
+            type: 'bar',
+            stack: '1',
+            emphasis: {
+                focus: 'series'
+            },
+            data: [25,40,26,21,24,20,14,20,12,42,52,40]
+        },
+        {
+            name: '0.15-0.2',
+            color:'rgba(117,0,117,0.5)',
+            type: 'bar',
+            stack: '1',
+            emphasis: {
+                focus: 'series'
+            },
+            data:[11,15,10,8,14,10,14,8,4,24,19,24]
+        },
+        {
+            name: '0.2-0.25',
+            color:'rgba(200,60,35,0.5)',
+            type: 'bar',
+            stack: '1',
+            emphasis: {
+                focus: 'series'
+            },
+            data: [5,15,9,6,15,5,4,2,2,11,7,13]
+        },
+        {
+            name: '0.25-0.3',
+            color:'rgba(242,236,222,0.5)',
+            type: 'bar',
+            stack: '1',
+            emphasis: {
+                focus: 'series'
+            },
+            data: [7,8,6,2,6,2,3,4,2,10,4,9]
+        },
+        {
+            name: '0.3-0.35',
+             color:'rgba(61,59,79,0.5)',
+            type: 'bar',
+            stack: '1',
+            emphasis: {
+                focus: 'series'
+            },
+            data:[1,6,2,2,11,6,2,2,1,6,5,3]
+        },
+        {
+            name: '0.35-0.4',
+            color:'rgba(214,236,240,0.5)',
+            type: 'bar',
+            stack: '1',
+            emphasis: {
+                focus: 'series'
+            },
+            data:[0,6,1,2,4,1,1,0,1,0,3,7]
+        },
+         {
+            name: '0.4-0.45',
+             color:'rgba(228,198,208,0.5)',
+            type: 'bar',
+            stack: '1',
+            emphasis: {
+                focus: 'series'
+            },
+            data: [1,1,2,0,3,5,1,1,2,4,2,1]
+        },
+         {
+            name: '0.45-0.5',
+            color:'rgba(220,48,35,0.5)',
+            type: 'bar',
+            stack: '1',
+            emphasis: {
+                focus: 'series'
+            },
+            data:[1,2,2,2,2,3,2,2,2,4,1,5]
+
+        },
+    ]
+};
+
+if (option && typeof option === 'object') {
+    myChart.setOption(option);
+}
+
+        </script>
+    </body>
+</html>
+    
